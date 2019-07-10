@@ -1,2 +1,2 @@
-# SimpleCrud_CodeIgniter
-# myrx
+# Attendance System
+# RFID with SMS Gateway
