@@ -76,8 +76,15 @@
           </div>
 
           <div class="form-group">
-            <label>Contact#</label>
-            <input type="text" id="editGuardianContact" class="form-control" autocomplete="off">
+            <label>Guardian Contact#</label>
+
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">+63</span>
+              </div>              
+              <input type="text" id="editGuardianContact" class="form-control" autocomplete="off">
+            </div>
+
           </div>
 
           <div class="form-group">

@@ -96,4 +96,66 @@ class Timelog_model extends CI_Model {
 		return $this->db->query($sql,$data);			
 	}
 
+	public function getAllLateByDate($start,$limit,$from,$to) {
+
+		$start1 = $this->db->escape_str($start);
+		$limit1 = $this->db->escape_str($limit);
+		$from1 = $this->db->escape_str($from);
+		$to1 = $this->db->escape_str($to);
+
+		if($limit > 0 || $limit != '') {
+
+			$sql = "
+			SELECT t.id, s.last_name, s.first_name,sg.grade_level,ss.section, gl.schedule_timein, t.timeTap, t.dateTap 
+			FROM students s, grade_level gl, settings_gradelevel sg, settings_section ss,timelog t 
+			WHERE s.id = gl.student_id
+			AND gl.grade_level = sg.id
+			AND gl.section = ss.id
+			AND gl.id = t.grade_level_id
+			AND t.grade_level_id = gl.id
+			AND t.type = 'in'
+			AND t.dateTap BETWEEN '".$from1."' AND '".$to1."' 
+			AND t.timeTap > gl.schedule_timein
+			ORDER BY gl.grade_level ASC
+			LIMIT ".$start1.",".$limit1;
+		}else {
+
+			$sql = "
+			SELECT t.id, s.last_name, s.first_name,sg.grade_level,ss.section, gl.schedule_timein, t.timeTap, t.dateTap 
+			FROM students s, grade_level gl, settings_gradelevel sg, settings_section ss,timelog t 
+			WHERE s.id = gl.student_id
+			AND gl.grade_level = sg.id
+			AND gl.section = ss.id
+			AND gl.id = t.grade_level_id
+			AND t.grade_level_id = gl.id
+			AND t.type = 'in'
+			AND t.dateTap BETWEEN '".$from1."' AND '".$to1."' 
+			AND t.timeTap > gl.schedule_timein
+			ORDER BY gl.grade_level ASC";			
+		}
+
+		return $this->db->query($sql);			
+	}
+
+
+	public function getAbsentByDate($date) {
+
+		$sql = "
+		SELECT gl.id, s.last_name, s.first_name, sg.grade_level, ss.section,t.grade_level_id, t.dateTap 
+		FROM grade_level gl
+		INNER JOIN students s
+		ON s.id = gl.student_id
+		INNER JOIN settings_gradelevel sg
+		ON gl.grade_level = sg.id 
+		INNER JOIN settings_section ss
+		ON gl.section = ss.id
+		LEFT JOIN timelog t
+		ON gl.id = t.grade_level_id
+		AND t.dateTap = '".$date."'
+		WHERE gl.status = 1
+		AND t.grade_level_id IS NULL";
+		
+		return $this->db->query($sql);			
+	}
+
 }

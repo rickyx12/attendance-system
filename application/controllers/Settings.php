@@ -7,6 +7,7 @@ class Settings extends CI_Controller {
  		parent::__construct();
  		$this->load->helper('url');
  		$this->load->model('settings_model');
+ 		$this->load->model('timelog_model');
  		$this->load->library('session');
  	}
 
@@ -256,5 +257,95 @@ class Settings extends CI_Controller {
 		$this->load->view('settings/section/students/index.php');
 		$this->load->view('includes/footer');   	
     }
+
+
+	public function lates() {
+
+		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page'
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/lates/index');
+		$this->load->view('includes/footer');		
+	}    
+
+
+    public function getLateByDateJSON() {
+
+		$this->isLogged();
+
+        $draw = $this->input->get('draw');
+        $start = $this->input->get('start');
+        $length = $this->input->get('length');
+		$from = $this->input->get('from');
+		$to = $this->input->get('to');
+
+        $data = array(
+            "draw" => $draw,
+            "recordsTotal" => $this->timelog_model->getAllLateByDate(null,null,$from,$to)->num_rows(),
+            "recordsFiltered" => $this->timelog_model->getAllLateByDate(null,null,$from,$to)->num_rows(),
+            "data" => $this->timelog_model->getAllLateByDate($start,$length,$from,$to)->result()
+        );
+
+        echo json_encode($data);            
+    }
+
+	public function absences() {
+
+		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page'
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/absent/index');
+		$this->load->view('includes/footer');		
+	}  
+
+    public function getAbsentByDateJSON() {
+
+        $draw = $this->input->get('draw');
+		$from = $this->input->get('from');
+		$to = $this->input->get('to');
+
+		$begin = new DateTime($from);
+		$end = new DateTime($to);    	
+
+		$dataArr = [];
+
+
+		$interval = DateInterval::createFromDateString('1 day');
+		$period = new DatePeriod($begin, $interval, $end);
+
+		foreach ($period as $dt) {
+		    
+		    $result = $this->timelog_model->getAbsentByDate($dt->format("Y-m-d"))->result();
+
+		    foreach($result as $res) {
+		    	$data = new stdClass();
+		    	$data->last_name = $res->last_name;
+		    	$data->first_name = $res->first_name;
+		    	$data->section = $res->section;
+		    	$data->grade_level = $res->grade_level;
+		    	$data->date = $dt->format("Y-m-d");
+		    	array_push($dataArr,$data);
+		    }
+		}
+
+        $data = array(
+            "draw" => $draw,
+            "recordsTotal" => count($dataArr),
+            "recordsFiltered" => count($dataArr),
+            "data" => $dataArr
+        );
+
+		echo json_encode($data);
+
+    }
+
 
 }

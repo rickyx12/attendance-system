@@ -27,15 +27,17 @@ $(function(){
 										}
 									}
 								],
-								dom: 'Bfrtip',
+								dom: '<"row"<"col-sm-6"l><"col-sm-6 text-right"B>>trip',
 						        buttons: [
 						        	{
 						        		extend:'excelHtml5',
-						        		filename:section+' ('+today+')'
+						        		filename:section+' ('+today+')',
+						        		className:'btn btn-success mb-1'
 						        	},
 						        	{
 						        		extend:'pdfHtml5',
-						        		filename:section+' ('+today+')'
+						        		filename:section+' ('+today+')',
+						        		className:'btn btn-danger mb-1'
 						        	}
 						        ]																
 							});

@@ -53,6 +53,30 @@
         </div>
       </div>
 
+      <div class="row mt-2">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Settings/lates') ?>">Lates</a>
+              <br>
+              <label style="font-size:13px;">View all late student in a specific period.</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6">      
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Settings/absences') ?>">Absences</a>
+              <br>
+              <label style="font-size:13px;">View all absent student in a specific period.</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
     </div>
   </div>
 
