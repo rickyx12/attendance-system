@@ -27,7 +27,12 @@
   <div class="container">
     <div class="card card-login mx-auto mt-5">
       <div class="card-header">Login</div>
-      <div class="card-body">
+      <div class="card-body pt-0">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <img src="<?= base_url("assets/img/tech-guardian.PNG") ?>" height="150" width="150">
+            </div>
+          </div>        
         <form method="POST" action="<?= base_url('Account/loginNow') ?>">
           <div class="form-group">
             <div class="form-label-group">
