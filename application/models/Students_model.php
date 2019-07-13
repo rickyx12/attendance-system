@@ -20,8 +20,10 @@ class Students_model extends CI_Model {
 
 		$search1 = $this->db->escape_str($search);
 
-		$sql = "SELECT * FROM students WHERE last_name LIKE '".$search1."%' AND status = 1";
-		return $this->db->query($sql);
+		if($search1 != null || $search1 != "") {
+			$sql = "SELECT * FROM students WHERE last_name LIKE '".$search1."%' AND status = 1";
+			return $this->db->query($sql);
+		}
 	
 	}
 
