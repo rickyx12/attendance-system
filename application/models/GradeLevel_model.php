@@ -103,4 +103,26 @@ class GradeLevel_model extends CI_Model {
 		$this->db->query($sql,$data);		
 	}
 
+	public function searchStudent($param) {
+
+		$student = $this->db->escape_str($param);
+
+		if($param != '' || $param != null) {
+			$sql = "
+				SELECT gl.id, s.last_name, s.first_name, s.middle_name, ss.section, sg.grade_level
+				FROM students s
+				INNER JOIN grade_level gl
+				ON s.id = gl.student_id
+				INNER JOIN settings_gradelevel sg
+				ON gl.grade_level = sg.id
+				INNER JOIN settings_section ss
+				ON gl.section = ss.id
+				WHERE s.last_name LIKE '".$student."%'
+				AND gl.status = 1
+			";
+
+			return $this->db->query($sql);
+		}
+	}
+
 }

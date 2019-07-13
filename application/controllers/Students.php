@@ -8,6 +8,7 @@ class Students extends CI_Controller {
  		$this->load->helper('url');
  		$this->load->model('students_model');
  		$this->load->model('settings_model');
+ 		$this->load->model('gradelevel_model');
  		$this->load->library('session');
  	}
 
@@ -159,6 +160,28 @@ class Students extends CI_Controller {
 
     }
 
+
+    public function searchGradelevelStudentSelect2() {
+
+    	$this->isLogged();
+
+    	$term = $this->input->get('term');
+    	$type = $this->input->get('type');
+    	$q = $this->input->get('q');
+    	$resArray = [];
+
+    	$students = $this->gradelevel_model->searchStudent($term)->result();
+
+    	foreach($students as $student) {
+
+    		array_push($resArray,array("id" => $student->id, "text" => $student->last_name.", ".$student->first_name." ".$student->middle_name." (".$student->section." - ".$student->grade_level.")"));
+
+    	}
+    
+
+    	echo json_encode(array("results" => $resArray));
+
+    }
 
     public function studentsPerGradeLevelJSON() {
 

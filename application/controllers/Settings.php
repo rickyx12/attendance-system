@@ -348,4 +348,60 @@ class Settings extends CI_Controller {
     }
 
 
+	public function attendance() {
+
+		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page'
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/attendance/index');
+		$this->load->view('includes/footer');		
+	}
+
+
+	public function test() {
+
+		$student = $this->input->get('student');
+		$draw = $this->input->get('draw');
+		$from = $this->input->get('from');
+		$to = $this->input->get('to');
+
+		$begin = new DateTime($from);
+		$end = new DateTime($to);
+
+		$dataArr = [];
+
+		$interval = DateInterval::createFromDateString('1 day');
+		$period = new DatePeriod($begin, $interval, $end);	
+
+		foreach ($period as $dt) {
+
+			$result = $this->timelog_model->getAttendanceByDate($student,$dt->format("Y-m-d"))->result();
+
+		    foreach($result as $res) {
+		    	$data = new stdClass();
+		    	$data->last_name = $res->last_name;
+		    	$data->timeTap = $res->timeTap;
+		    	$data->type = $res->type;
+		    	$data->day = $dt->format("l");
+		    	$data->sched_timein = $res->schedule_timein;
+		    	$data->sched_timeout = $res->schedule_timeout;
+		    	$data->date = $dt->format("Y-m-d");
+		    	array_push($dataArr,$data);
+		    }				
+		}
+
+        $data = array(
+            "draw" => $draw,
+            "recordsTotal" => count($dataArr),
+            "recordsFiltered" => count($dataArr),
+            "data" => $dataArr
+        );
+
+		echo json_encode($data);	
+	}
+
 }
