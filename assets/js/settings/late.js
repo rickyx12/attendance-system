@@ -34,13 +34,13 @@ $(function(){
 									{
 										data:null,
 										render:function(data,type,row) {
-											return data.schedule_timein
+											return formatTime(data.schedule_timein)
 										}
 									},
 									{
 										data:null,
 										render:function(data,type,row) {
-											return data.timeTap
+											return formatTime(data.timeTap)
 										}
 									},
 									{
@@ -58,7 +58,7 @@ $(function(){
 									{
 										data:null,
 										render:function(data,type,row) {
-											return data.dateTap
+											return formatDate(data.dateTap)
 										}
 									}
 								],
