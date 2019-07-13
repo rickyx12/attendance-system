@@ -32,7 +32,7 @@ $(function(){
 								retrieve:true,
 								ordering:false,							
 								ajax:{
-									url: base_url+'Settings/test',
+									url: base_url+'Settings/getStudentAttendanceByDate',
 									data:{ from: from, to: to, student: student }
 								},
 								columns:[

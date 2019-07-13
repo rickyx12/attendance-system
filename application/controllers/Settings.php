@@ -362,7 +362,7 @@ class Settings extends CI_Controller {
 	}
 
 
-	public function test() {
+	public function getStudentAttendanceByDate() {
 
 		$student = $this->input->get('student');
 		$draw = $this->input->get('draw');
