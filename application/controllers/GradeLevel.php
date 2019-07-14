@@ -47,7 +47,7 @@ class GradeLevel extends CI_Controller {
 			$rfCard = $this->input->post('rfCard');
 
 
-			if($studentId != "" || $gradeLevel != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
+			if($studentId != "" || $gradeLevel != "" || $section != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
 
 				$filteredTimein  = date("H:i", strtotime($timeIn));
 				$filteredTimeout = date("H:i", strtotime($timeOut));	
