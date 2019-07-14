@@ -151,7 +151,7 @@ class Students extends CI_Controller {
 
     	foreach($students as $student) {
 
-    		array_push($resArray,array("id" => $student->id, "text" => $student->last_name.", ".$student->first_name." ".$student->middle_name));
+    		array_push($resArray,array("id" => $student->id, "text" => $student->name));
 
     	}
     

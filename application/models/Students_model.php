@@ -21,10 +21,12 @@ class Students_model extends CI_Model {
 		$search1 = $this->db->escape_str($search);
 
 		if($search1 != null || $search1 != "") {
-			$sql = "SELECT * FROM students WHERE last_name LIKE '".$search1."%' AND status = 1";
+			$sql = "
+			SELECT id,CONCAT_WS(' ',last_name,first_name,middle_name) as name 
+			FROM students 
+			WHERE CONCAT_WS(' ',last_name,first_name,middle_name) LIKE '".$search1."%' AND status = 1";
 			return $this->db->query($sql);
 		}
-	
 	}
 
 	public function getStudents($start,$limit,$search) {
