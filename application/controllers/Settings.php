@@ -374,24 +374,22 @@ class Settings extends CI_Controller {
 
 		$dataArr = [];
 
-		$interval = DateInterval::createFromDateString('1 day');
-		$period = new DatePeriod($begin, $interval, $end);	
+		for($x = $begin ;$x <= $end; $x->modify('+1 day')) {
 
-		foreach ($period as $dt) {
-
-			$result = $this->timelog_model->getAttendanceByDate($student,$dt->format("Y-m-d"))->result();
+			$result = $this->timelog_model->getAttendanceByDate($student,$x->format("Y-m-d"))->result();
 
 		    foreach($result as $res) {
 		    	$data = new stdClass();
 		    	$data->last_name = $res->last_name;
 		    	$data->timeTap = $res->timeTap;
 		    	$data->type = $res->type;
-		    	$data->day = $dt->format("l");
+		    	$data->day = $x->format("l");
 		    	$data->sched_timein = $res->schedule_timein;
 		    	$data->sched_timeout = $res->schedule_timeout;
-		    	$data->date = $dt->format("Y-m-d");
+		    	$data->date = $x->format("Y-m-d");
 		    	array_push($dataArr,$data);
-		    }				
+		    }	
+
 		}
 
         $data = array(

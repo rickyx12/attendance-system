@@ -25,8 +25,7 @@ $(function(){
 		  $('#attendanceTable').DataTable().destroy();
 		}
 
-
-		var attendanceTable =	$('#attendanceTable').DataTable({
+		let attendanceTable =	$('#attendanceTable').DataTable({
 								processing:true,
 								serverSide:true,
 								retrieve:true,
@@ -37,11 +36,10 @@ $(function(){
 								},
 								columns:[
 									{
-										data:null,
+										data:"date",
 										render:function(data,type,row) {
-
-											if(data.date != null) {
-												return data.date;
+											if(row.date != null) {
+												return formatDate(row.date);
 											}else {
 												return "";
 											}
@@ -49,35 +47,34 @@ $(function(){
 										}
 									},
 									{
-										data:null,
+										data:"day",
 										render:function(data,type,row) {
-
-											if(data.date != null && data.type == 'in') {
-												return data.day;
+											if(row.date != null && row.type == 'in') {
+												return row.day;
 											}else {
 												return "";
 											}	
 										}
 									},
 									{
-										data:null,
+										data:"schedule",
 										render:function(data,type,row) {
 
-											if(data.type == "in") {
-												return formatTime(data.sched_timein);
-											}else if(data.type == "out") {
-												return formatTime(data.sched_timeout);
+											if(row.type == "in") {
+												return formatTime(row.sched_timein);
+											}else if(row.type == "out") {
+												return formatTime(row.sched_timeout);
 											}else {
 												return "";
 											}
 										}
 									},
 									{
-										data:null,
+										data:"time",
 										render:function(data,type,row) {
 
-											if(data.timeTap != null) {
-												return formatTime(data.timeTap);
+											if(row.timeTap != null) {
+												return formatTime(row.timeTap);
 											}else {
 												return "";
 											}
@@ -85,12 +82,12 @@ $(function(){
 										}
 									},
 									{
-										data:null,
+										data:"type",
 										render:function(data,type,row) {
 											
-											if(data.type == "in") {
+											if(row.type == "in") {
 												return "IN";
-											}else if(data.type == "out") {
+											}else if(row.type == "out") {
 												return "OUT";
 											}else {
 												return "";
@@ -99,15 +96,15 @@ $(function(){
 										}
 									},
 									{
-										data:null,
+										data:"note",
 										render:function(data,type,row) {
 
-											let timein = data.sched_timein;
-											let timeout = data.sched_timeout;
+											let timein = row.sched_timein;
+											let timeout = row.sched_timeout;
 
-											if((data.timeTap > timein) && data.type == 'in') {
+											if((row.timeTap > timein) && row.type == 'in') {
 												return "LATE";
-											}else if((data.timeTap < timeout) && data.type == 'out') {
+											}else if((row.timeTap < timeout) && row.type == 'out') {
 												return "UNDERTIME";
 											}else {
 												return "";
@@ -129,6 +126,6 @@ $(function(){
 						        		className:'btn btn-danger mb-1'
 						        	}
 						        ]																
-							});		
+							});	
 	});
 });

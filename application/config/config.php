@@ -23,9 +23,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-// $config['base_url'] = 'http://134.209.99.160';
+
  $config['base_url'] = 'http://localhost/students/';
-// $config['base_url'] = 'https://myrxph.herokuapp.com/';
+ $config['sms_gateway'] = 'http://192.168.1.92/';
 
 /*
 |--------------------------------------------------------------------------

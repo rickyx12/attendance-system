@@ -29,7 +29,7 @@
   <link href="<?= base_url('assets/css/select2.min.css') ?>" rel="stylesheet" />
   <link href="<?= base_url('assets/css/jquery.dataTables.min.css') ?>" rel="stylesheet" />
   <link href="<?= base_url('assets/css/daterangepicker.css') ?>" rel="stylesheet" />
-
+  
   <script src="<?= base_url('assets/vendor/jquery/jquery.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/select2.min.js') ?>"></script>

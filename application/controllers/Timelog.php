@@ -23,7 +23,7 @@ class Timelog extends CI_Controller {
 		$ch = curl_init();
 		 
 		//Set the URL that you want to GET by using the CURLOPT_URL option.
-		curl_setopt($ch, CURLOPT_URL, 'http://192.168.0.92/action_page?cpNumber='.$cpNumber.'&message='.$message);
+		curl_setopt($ch, CURLOPT_URL, $this->config->item('sms_gateway').'action_page?cpNumber='.$cpNumber.'&message='.$message);
 		 
 		//Set CURLOPT_RETURNTRANSFER so that the content is returned as a variable.
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

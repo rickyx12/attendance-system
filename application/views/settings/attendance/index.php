@@ -29,7 +29,6 @@
 
       <div class="row">
         <div class="col-md-12">
-          
           <div class="table-responsive">
             <table id="attendanceTable" class="table table-bordered table-striped">
               <thead>
@@ -41,11 +40,8 @@
                   <th>Type</th>
                   <th>Notes</th>
                 </tr>
-              </thead>
-              <tbody>
-              </tbody>
+              </thead>          
             </table>
-            <input type="hidden" id="studentName">
           </div>
 
         </div>
