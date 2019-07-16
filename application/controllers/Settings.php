@@ -180,7 +180,7 @@ class Settings extends CI_Controller {
 		$section = $this->input->post('section');
 		$gradeLevel = $this->input->post('gradeLevel');
 
-		if($section != "" || $gradeLevel != "") {
+		if($section != "" && $gradeLevel != "") {
 
 			$data = array(
 				$section,
@@ -401,5 +401,97 @@ class Settings extends CI_Controller {
 
 		echo json_encode($data);	
 	}
+
+
+	public function schoolYear() {
+
+		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page'
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/schoolYear/index');
+		$this->load->view('includes/footer');		
+	}	
+
+	public function createSchoolYear() {
+
+		$this->isLogged();
+
+		$schoolYear = $this->input->post('schoolYear');
+
+		if($schoolYear != "") {
+
+			$data = array($schoolYear);
+			$this->settings_model->createSchoolYear($data);
+			$data = array('status' => 'success','message' => 'Successfully Added.');
+		} else {
+
+			$data = array('status' => 'error','message' => 'Please Fill out the field.');
+		}
+	
+		echo json_encode($data);
+	}
+
+
+    public function schoolYearJSON() {
+
+		$this->isLogged();
+
+        $draw = $this->input->get('draw');
+        $start = $this->input->get('start');
+        $length = $this->input->get('length');
+        $search = $this->input->get('search')['value'];
+
+        $data = array(
+            "draw" => $draw,
+            "recordsTotal" => $this->settings_model->getSchoolYear(null,null,null)->num_rows(),
+            "recordsFiltered" => $this->settings_model->getSchoolYear(null,null,null)->num_rows(),
+            "data" => $this->settings_model->getSchoolYear($start,$length,$search)->result()
+        );
+
+        echo json_encode($data);            
+    }	
+
+	public function updateSchoolYear() {
+
+		$this->isLogged();
+
+		$schoolYearId = $this->input->post('schoolYearId');
+		$schoolYear = $this->input->post('schoolYear');
+
+		if($schoolYear != "") {
+
+			$data = array(
+				$schoolYear,
+				$schoolYearId
+			);
+
+			$this->settings_model->updateSchoolYear($data);
+
+			$data = array('status' => 'success', 'message' => 'Successfully Updated.');
+		}else {
+
+			$data = array('status' => 'error', 'message' => 'Please Fill out the fields.');
+		}
+
+		echo json_encode($data);
+	}    
+
+	public function deleteSchoolYear() {
+
+		$this->isLogged();
+
+		$schoolYearId = $this->input->post('schoolYearId');
+
+		$this->settings_model->deleteSchoolYear(array($schoolYearId));
+
+		$data = array('status' => 'success', 'message' => 'Successfully Deleted.');
+
+		echo json_encode($data);
+	}
+
 
 }

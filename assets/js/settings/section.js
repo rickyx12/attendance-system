@@ -74,6 +74,7 @@ $(function(){
 	$('#newModalBtn').click(function() {
 
 		$('#newModalBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let section = $('#section').val();
 		let gradeLevel = $('#gradeLevel').val();
@@ -97,13 +98,15 @@ $(function(){
 
 					swal("Good job!",res.message, "success");
 					$('#newModal').modal('hide');
-					$('#newModalBtn').attr('disabled',false);
 					sectionTable.ajax.reload(null,false);
 
 					$('#section').val('');
 				}else {
 					swal("Ooopss!",res.message, "error");
 				}
+
+				$('#newModalBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 			}
 		});
 	});
@@ -112,6 +115,7 @@ $(function(){
 	$('#editModalBtn').click(function() {
 
 		$('#editModalBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let sectionId = $('#sectionId').val();
 		let section = $('#editSection').val();
@@ -135,7 +139,6 @@ $(function(){
 
 					swal("Good job!",res.message, "success");
 					$('#editModal').modal('hide');
-					$('#editModalBtn').attr('disabled',false);
 					sectionTable.ajax.reload(null,false);
 
 					$('#editGradeLevel').val('');					
@@ -143,6 +146,9 @@ $(function(){
 
 					swal("Ooopss!",res.message, "error");					
 				}
+
+				$('#editModalBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 			}
 		});
  	});
