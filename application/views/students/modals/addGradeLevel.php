@@ -10,7 +10,7 @@
           <div class="form-group">
             <div class="row">
               <div class="col-6" style="width: 150px; height: 150px;">
-                <img id="studentPhotoPreview" style="width: 100%; height: 100%;">
+                <img id="studentPhotoPreview" src="<?= base_url('assets/img/150.png') ?>" style="width: 100%; height: 100%;">
               </div>
               <div class="col-6">
                 <form id="uploadStudentPhoto">

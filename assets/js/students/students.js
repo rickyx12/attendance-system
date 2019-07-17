@@ -151,6 +151,7 @@ $(function(){
 	$('#deleteStudentBtn').click(function(){
 
 		$('#deleteStudentBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let studentId = $('#studentId').val();
 
@@ -170,6 +171,7 @@ $(function(){
 				studentsTable.ajax.reload(null,false);
 				$('#deleteStudentModal').modal('hide');
 				$('#deleteStudentBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 			}
 		});
 

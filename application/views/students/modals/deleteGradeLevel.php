@@ -13,8 +13,8 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-          <button type="button" id="deleteGradeLevelBtn" class="btn btn-success">Proceed</button>
+            <button type="button" class="btn btn-danger closeModalBtn" data-dismiss="modal">Close</button>
+            <button type="button" id="deleteGradeLevelBtn" class="btn btn-success">Proceed</button>
         </div>
       </div>
 

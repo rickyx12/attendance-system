@@ -1,6 +1,6 @@
 function loadTable(base_url,param) {
 
-	 var gradeLevelTable = $('#gradeLevelTable').DataTable({
+			$('#gradeLevelTable').DataTable({
 	 					processing:true,
 						serverSide:true,
 						retrieve:true,								
@@ -155,7 +155,19 @@ $(function(){
 
 					swal("Good job!", res.message, "success");
 					$('#newGradeLevelModal').modal('hide');
-					gradeLevelTable.ajax.reload(null,false);
+					$('#gradeLevelTable').DataTable().ajax.reload(null,false);
+
+					$('#studentPhotoPreview').attr('src',base_url+'assets/img/150.png');
+					$('#studentPhotoInput').val('');
+					$('#students-list').html('<option></option>');
+					$("#gradeLevelSelect").val($("#gradeLevelSelect option:first").val());
+					$('#section').html('<option></option>');
+					$('#timein').val('');
+					$('#timeout').val('');
+					$("#schoolYearSelect").val($("#schoolYearSelect option:first").val());
+					$('#guardian').val('');
+					$('#guardianContact').val('');
+					$('#rfCard').val('');
 
 				}else {
 
@@ -164,7 +176,6 @@ $(function(){
 
 				$('#newGradeLevelBtn').attr('disabled',false);
 				$('.closeModalBtn').attr('disabled',false);
-
 			}
 		});
 
@@ -217,7 +228,7 @@ $(function(){
 
 					swal("Good job!", res.message, "success");
 					$('#editGradeLevelModal').modal('hide');
-					gradeLevelTable.ajax.reload(null,false);
+					$('#gradeLevelTable').DataTable().ajax.reload(null,false);
 					
 				}else {
 
@@ -236,6 +247,7 @@ $(function(){
 	$('#deleteGradeLevelBtn').click(function(){
 
 		$('#deleteGradeLevelBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let id = $('#gradeLevelId').val();
 
@@ -252,9 +264,10 @@ $(function(){
 				let res = JSON.parse(result);
 
 				swal("Good job!", res.message, "success");
-				gradeLevelTable.ajax.reload(null,false);
+				$('#gradeLevelTable').DataTable().ajax.reload(null,false);
 				$('#deleteGradeLevelModal').modal('hide');	
 				$('#deleteGradeLevelBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 			}
 		});
 
