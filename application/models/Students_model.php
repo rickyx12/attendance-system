@@ -42,7 +42,7 @@ class Students_model extends CI_Model {
 				$sql = "
 				SELECT * 
 				FROM students 
-				WHERE last_name 
+				WHERE CONCAT_WS(' ',last_name,first_name,middle_name) 
 				LIKE '".$search1."%' 
 				AND status = 1 
 				ORDER BY id DESC 

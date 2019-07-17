@@ -13,7 +13,7 @@ $(function(){
 							{
 								data:null,
 								render:function(data,type,row) {
-									return data.last_name+", "+data.first_name;
+									return data.last_name+" "+data.first_name+" "+data.middle_name;
 								}
 							},
 							{
