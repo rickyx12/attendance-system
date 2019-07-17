@@ -22,7 +22,6 @@
             <th>Student</th>
             <th>Grade Level</th>
             <th>Schedule</th>
-            <th>School Year</th>
             <th></th>
           </tr>
         </thead>

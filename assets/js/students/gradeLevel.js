@@ -12,7 +12,7 @@ function loadTable(base_url,param) {
 							{
 								data:null,
 								render:function(data,type,row) {
-									return data.last_name+', '+data.first_name;
+									return data.last_name+' '+data.first_name+' '+data.middle_name+'.';
 								}
 							},
 							{
@@ -26,9 +26,6 @@ function loadTable(base_url,param) {
 								render:function(data,type,row) {
 									return formatTime(data.schedule_timein)+' - '+formatTime(data.schedule_timeout)
 								} 
-							},
-							{
-								data:'school_year'
 							},
 							{
 								data:null,
