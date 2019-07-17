@@ -61,6 +61,7 @@ $(function(){
 	$('#newStudentBtn').click(function() {
 
 		$('#newStudentBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let lastName = $('#lastName').val();
 		let firstName = $('#firstName').val();
@@ -86,7 +87,6 @@ $(function(){
 					swal("Good job!", firstName+", "+lastName+" has been added", "success");
 					$('#newStudentModal').modal('hide');
 					studentsTable.ajax.reload(null,false);
-					$('#newStudentBtn').attr('disabled',false);
 
 					$('#lastName').val('');
 					$('#firstName').val('');
@@ -94,6 +94,9 @@ $(function(){
 				}else {
 					swal("Ooopss!",res.message, "error");
 				}
+
+				$('#newStudentBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 			}
 		});
 	});
@@ -103,6 +106,7 @@ $(function(){
 	$('#editStudentBtn').click(function() {
 
 		$('#editStudentBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let id = $('#studentId').val();
 		let lastName = $('#editLastName').val();
@@ -131,12 +135,14 @@ $(function(){
 					
 					swal("Good job!", firstName+", "+lastName+" has been added", "success");
 					$('#editStudentModal').modal('hide');
-					studentsTable.ajax.reload(null,false);
-					$('#editStudentBtn').attr('disabled',false);		
+					studentsTable.ajax.reload(null,false);		
 								
 				}else {
 					swal("Ooopss!",res.message, "error");
 				}
+
+				$('#editStudentBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 			}
 		});
 	});
