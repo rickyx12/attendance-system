@@ -16,7 +16,7 @@
           <a class="nav-link active" data-toggle="tab" href="#personalInfo">Personal Info</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#gradeLevel">Grade Level</a>
+          <a class="nav-link" data-toggle="tab" href="#gradeLevel">Enrollees</a>
         </li>
       </ul>
 

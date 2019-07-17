@@ -79,12 +79,13 @@ class Students_model extends CI_Model {
 	}
 
 
-	public function getStudentsPerGradeLevel($start,$limit,$search,$gradeLevel) {
+	public function getStudentsPerGradeLevel($start,$limit,$search,$gradeLevel,$schoolYear) {
 
 		$start1 = $this->db->escape_str($start);
 		$limit1 = $this->db->escape_str($limit);
 		$search1 = $this->db->escape_str($search);
 		$grade = $this->db->escape_str($gradeLevel);
+		$sy = $this->db->escape_str($schoolYear);
 
 		if($limit > 0 || $limit != '') {
 
@@ -92,10 +93,11 @@ class Students_model extends CI_Model {
 
 				$sql = "
 				SELECT s.last_name, s.first_name, s.middle_name, ss.section
-				FROM students s ,grade_level gl, settings_section ss 
+				FROM students s ,grade_level gl, settings_section ss
 				WHERE s.id = gl.student_id
 				AND gl.grade_level = ".$grade." 
 				AND gl.section = ss.id
+				AND gl.school_year = '".$sy."'
 				AND (s.last_name LIKE '".$search1."%') 
 				AND gl.status = 1 
 				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;
@@ -104,10 +106,11 @@ class Students_model extends CI_Model {
 			
 				$sql = "
 				SELECT s.last_name, s.first_name, s.middle_name, ss.section
-				FROM students s, grade_level gl, settings_section ss 
+				FROM students s, grade_level gl, settings_section ss
 				WHERE s.id = gl.student_id 
 				AND gl.grade_level = ".$grade."
 				AND gl.section = ss.id
+				AND gl.school_year = '".$sy."'
 				AND gl.status = 1 
 				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;	
 			}
@@ -115,9 +118,10 @@ class Students_model extends CI_Model {
 		}else {
 
 			$sql = "
-			SELECT * FROM students s ,grade_level gl, settings_section ss 
+			SELECT * FROM students s ,grade_level gl, settings_section ss
 			WHERE s.id = gl.student_id 
 			AND gl.grade_level = ".$grade."
+			AND gl.school_year = '".$sy."'
 			AND gl.section = ss.id
 			AND gl.status = 1";
 		}
@@ -126,12 +130,13 @@ class Students_model extends CI_Model {
 	}
 
 
-	public function getStudentsPerSection($start,$limit,$search,$section) {
+	public function getStudentsPerSection($start,$limit,$search,$section,$schoolYear) {
 
 		$start1 = $this->db->escape_str($start);
 		$limit1 = $this->db->escape_str($limit);
 		$search1 = $this->db->escape_str($search);
 		$sec = $this->db->escape_str($section);
+		$sy = $this->db->escape_str($schoolYear);
 
 		if($limit > 0 || $limit != '') {
 
@@ -142,6 +147,7 @@ class Students_model extends CI_Model {
 				FROM students s ,grade_level gl
 				WHERE s.id = gl.student_id
 				AND gl.section = ".$sec."
+				AND gl.school_year = '".$sy."'
 				AND (s.last_name LIKE '".$search1."%') 
 				AND gl.status = 1 
 				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;
@@ -153,6 +159,7 @@ class Students_model extends CI_Model {
 				FROM students s, grade_level gl
 				WHERE s.id = gl.student_id 
 				AND gl.section = ".$sec."
+				AND gl.school_year = '".$sy."'
 				AND gl.status = 1 
 				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;	
 			}
@@ -163,6 +170,7 @@ class Students_model extends CI_Model {
 			SELECT * FROM students s ,grade_level gl
 			WHERE s.id = gl.student_id 
 			AND gl.section = ".$sec."
+			AND gl.school_year = '".$sy."'
 			AND gl.status = 1";
 		}
 

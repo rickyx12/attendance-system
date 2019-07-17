@@ -2,10 +2,11 @@ $(function(){
 
 	var base_url = $('body').data('urlbase');
 
-	$('#gradeLevelSelect').on('change', function() {
+	$('#reportBtn').click(function() {
 	 
-		let gradeLevel = this.value;
+		let gradeLevel = $('#gradeLevelSelect').val();
 		let grade = $('#gradeLevelSelect option:selected').text();
+		let schoolYear = $('#schoolYearSelect').val();
 
 		if ( $.fn.DataTable.isDataTable( '#studentsTable' ) ) {
 		  $('#studentsTable').DataTable().destroy();
@@ -17,7 +18,10 @@ $(function(){
 								retrieve:true,								
 								ajax:{
 									url: base_url+'Students/studentsPerGradeLevelJSON',
-									data:{ gradeLevel: gradeLevel }
+									data:{ 
+										gradeLevel: gradeLevel,
+										schoolYear:schoolYear 
+									}
 								},
 								columns:[
 									{

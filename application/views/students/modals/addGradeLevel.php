@@ -64,7 +64,12 @@
 
           <div class="form-group">
             <label>School Year</label>
-            <input type="text" id="schoolYear" class="form-control" autocomplete="off">
+            <select id="schoolYearSelect" class="form-control schoolYearSelect">
+              <option></option>
+              <?php foreach($schoolYear as $sy): ?>
+                <option value="<?= $sy->id ?>"><?= $sy->school_year ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
 
           <div class="form-group">
@@ -89,7 +94,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger closeModalBtn" data-dismiss="modal">Close</button>
           <button type="button" id="newGradeLevelBtn" class="btn btn-success">Proceed</button>
         </div>
       </div>

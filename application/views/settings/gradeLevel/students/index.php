@@ -22,8 +22,15 @@
           <?php endforeach; ?>
         </select>
       </div>
-      <div class="col-md-8">
-        
+      <div class="col-md-4">
+        <select id="schoolYearSelect" class="form-control">
+          <?php foreach($schoolYear as $sy): ?>
+            <option value="<?= $sy->id ?>"><?= $sy->school_year ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <button id="reportBtn" class="btn btn-success">Proceed</button>
       </div>
     </div>
     <br>

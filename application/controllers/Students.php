@@ -27,7 +27,8 @@ class Students extends CI_Controller {
 
 		$data = array(
 			'page' => 'students-page',
-			'gradeLevel' => $this->settings_model->getGradeLevel(null,null,null)->result()
+			'gradeLevel' => $this->settings_model->getGradeLevel(null,null,null)->result(),
+            'schoolYear' => $this->settings_model->getSchoolYear(null,null,null)->result()
 		);
 
 		$this->load->view('includes/header',$data);
@@ -192,12 +193,13 @@ class Students extends CI_Controller {
         $length = $this->input->get('length');
         $search = $this->input->get('search')['value'];
         $gradeLevel = $this->input->get('gradeLevel');
+        $schoolYear = $this->input->get('schoolYear');
 
         $data = array(
             "draw" => $draw,
-            "recordsTotal" => $this->students_model->getStudentsPerGradeLevel(null,null,null,$gradeLevel)->num_rows(),
-            "recordsFiltered" => $this->students_model->getStudentsPerGradeLevel(null,null,null,$gradeLevel)->num_rows(),
-            "data" => $this->students_model->getStudentsPerGradeLevel($start,$length,$search,$gradeLevel)->result()
+            "recordsTotal" => $this->students_model->getStudentsPerGradeLevel(null,null,null,$gradeLevel,$schoolYear)->num_rows(),
+            "recordsFiltered" => $this->students_model->getStudentsPerGradeLevel(null,null,null,$gradeLevel,$schoolYear)->num_rows(),
+            "data" => $this->students_model->getStudentsPerGradeLevel($start,$length,$search,$gradeLevel,$schoolYear)->result()
         );
 
         echo json_encode($data);            
@@ -213,12 +215,13 @@ class Students extends CI_Controller {
         $length = $this->input->get('length');
         $search = $this->input->get('search')['value'];
         $section = $this->input->get('section');
+        $schoolYear = $this->input->get('schoolYear');
 
         $data = array(
             "draw" => $draw,
-            "recordsTotal" => $this->students_model->getStudentsPerSection(null,null,null,$section)->num_rows(),
-            "recordsFiltered" => $this->students_model->getStudentsPerSection(null,null,null,$section)->num_rows(),
-            "data" => $this->students_model->getStudentsPerSection($start,$length,$search,$section)->result()
+            "recordsTotal" => $this->students_model->getStudentsPerSection(null,null,null,$section,$schoolYear)->num_rows(),
+            "recordsFiltered" => $this->students_model->getStudentsPerSection(null,null,null,$section,$schoolYear)->num_rows(),
+            "data" => $this->students_model->getStudentsPerSection($start,$length,$search,$section,$schoolYear)->result()
         );
 
         echo json_encode($data);            

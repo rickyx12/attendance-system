@@ -163,12 +163,13 @@ class GradeLevel extends CI_Controller {
         $start = $this->input->get('start');
         $length = $this->input->get('length');
         $search = $this->input->get('search')['value'];
+        $year = $this->input->get('schoolYear');
 
         $data = array(
             "draw" => $draw,
-            "recordsTotal" => $this->gradelevel_model->getGradeLevel(null,null,null)->num_rows(),
-            "recordsFiltered" => $this->gradelevel_model->getGradeLevel(null,null,null)->num_rows(),
-            "data" => $this->gradelevel_model->getGradeLevel($start,$length,$search)->result()
+            "recordsTotal" => $this->gradelevel_model->getEnrollees(null,null,null,$year)->num_rows(),
+            "recordsFiltered" => $this->gradelevel_model->getEnrollees(null,null,null,$year)->num_rows(),
+            "data" => $this->gradelevel_model->getEnrollees($start,$length,$search,$year)->result()
         );
 
         echo json_encode($data);            

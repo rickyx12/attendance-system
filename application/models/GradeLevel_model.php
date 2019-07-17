@@ -17,34 +17,39 @@ class GradeLevel_model extends CI_Model {
 		return $this->db->query($sql,$data);			
 	}
 
-	public function getGradeLevel($start,$limit,$search) {
+	public function getEnrollees($start,$limit,$search,$schoolYear) {
 
 		$start1 = $this->db->escape_str($start);
 		$limit1 = $this->db->escape_str($limit);
 		$search1 = $this->db->escape_str($search);
+		$schoolYear1 = $this->db->escape_str($schoolYear);
 
 		if($limit > 0 || $limit != '') {
 
 			if($search1 != "") {
 
 				$sql = "
-				SELECT gl.id as gradeLevelId,s.id as studentId,s.last_name,s.first_name,sg.id as settingsGradeLevelId,sg.grade_level,ss.id as sectionId,ss.section,gl.school_year,gl.schedule_timein,gl.schedule_timeout,gl.photo,gl.identifierTag,gl.guardian,gl.guardian_contact 
-				FROM students s ,grade_level gl, settings_gradelevel sg, settings_section ss 
+				SELECT gl.id as gradeLevelId,s.id as studentId,s.last_name,s.first_name,sg.id as settingsGradeLevelId,sg.grade_level,ss.id as sectionId,ss.section,sy.school_year,gl.schedule_timein,gl.schedule_timeout,gl.photo,gl.identifierTag,gl.guardian,gl.guardian_contact 
+				FROM students s ,grade_level gl, settings_gradelevel sg, settings_section ss, settings_schoolyear sy 
 				WHERE s.id = gl.student_id
 				AND gl.grade_level = sg.id 
 				AND gl.section = ss.id
+				AND gl.school_year = sy.id
 				AND (s.last_name LIKE '".$search1."%' OR gl.grade_level LIKE '".$search1."%') 
+				AND gl.school_year = '".$schoolYear1."'
 				AND gl.status = 1 
 				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;
 			
 			}else {
 			
 				$sql = "
-				SELECT gl.id as gradeLevelId,s.id as studentId,s.last_name,s.first_name,sg.id as settingsGradeLevelId,sg.grade_level,ss.id as sectionId,ss.section,gl.school_year,gl.schedule_timein,gl.schedule_timeout,gl.photo,gl.identifierTag,gl.guardian,gl.guardian_contact
-				FROM students s, grade_level gl, settings_gradelevel sg, settings_section ss 
+				SELECT gl.id as gradeLevelId,s.id as studentId,s.last_name,s.first_name,sg.id as settingsGradeLevelId,sg.grade_level,ss.id as sectionId,ss.section,sy.school_year,gl.schedule_timein,gl.schedule_timeout,gl.photo,gl.identifierTag,gl.guardian,gl.guardian_contact
+				FROM students s, grade_level gl, settings_gradelevel sg, settings_section ss, settings_schoolyear sy 
 				WHERE s.id = gl.student_id 
 				AND gl.grade_level = sg.id
 				AND gl.section = ss.id
+				AND gl.school_year = sy.id
+				AND gl.school_year = '".$schoolYear1."'
 				AND gl.status = 1 
 				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;	
 			}
@@ -52,10 +57,13 @@ class GradeLevel_model extends CI_Model {
 		}else {
 
 			$sql = "
-			SELECT * FROM students s ,grade_level gl, settings_gradelevel sg, settings_section ss 
+			SELECT gl.id as gradeLevelId,s.id as studentId,s.last_name,s.first_name,sg.id as settingsGradeLevelId,sg.grade_level,ss.id as sectionId,ss.section,sy.school_year,gl.schedule_timein,gl.schedule_timeout,gl.photo,gl.identifierTag,gl.guardian,gl.guardian_contact 
+			FROM students s ,grade_level gl, settings_gradelevel sg, settings_section ss, settings_schoolyear sy 
 			WHERE s.id = gl.student_id 
 			AND gl.grade_level = sg.id
 			AND gl.section = ss.id
+			AND gl.school_year = sy.id
+			AND gl.school_year = '".$schoolYear1."'
 			AND gl.status = 1";
 		}
 

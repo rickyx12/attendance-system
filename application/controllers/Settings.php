@@ -124,7 +124,8 @@ class Settings extends CI_Controller {
 
 		$data = array(
 			'page' => 'settings-page',
-			'gradeLevel' => $this->settings_model->getGradeLevel('','','')->result()
+			'gradeLevel' => $this->settings_model->getGradeLevel('','','')->result(),
+			'schoolYear' => $this->settings_model->getSchoolYear('','','')->result()
 		);
 
 		$this->load->view('includes/header',$data);
@@ -250,7 +251,8 @@ class Settings extends CI_Controller {
 
 		$data = array(
 			'page' => 'settings-page',
-			'sections' => $this->settings_model->getSection('','','')->result()
+			'sections' => $this->settings_model->getSection('','','')->result(),
+			'schoolYear' => $this->settings_model->getSchoolYear('','','')->result()
 		);
 
 		$this->load->view('includes/header',$data);

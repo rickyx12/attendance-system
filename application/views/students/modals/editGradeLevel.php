@@ -67,7 +67,11 @@
 
           <div class="form-group">
             <label>School Year</label>
-            <input type="text" id="editSchoolYear" class="form-control" autocomplete="off">
+            <select id="editSchoolYearSelect" class="form-control schoolYearSelect">
+              <?php foreach($schoolYear as $sy): ?>
+                <option value="<?= $sy->id ?>"><?= $sy->school_year ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
 
           <div class="form-group">

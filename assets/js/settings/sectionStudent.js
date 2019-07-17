@@ -2,10 +2,11 @@ $(function(){
 
 	var base_url = $('body').data('urlbase');
 
-	$('#sectionSelect').on('change', function() {
+	$('#reportBtn').click(function() {
 	 
-		let sectionId = this.value;
+		let sectionId = $('#sectionSelect').val();
 		let section = $('#sectionSelect option:selected').text();
+		let schoolYear = $('#schoolYearSelect').val();
 
 		if ( $.fn.DataTable.isDataTable( '#studentsTable' ) ) {
 		  $('#studentsTable').DataTable().destroy();
@@ -17,7 +18,10 @@ $(function(){
 								retrieve:true,								
 								ajax:{
 									url: base_url+'Students/studentsPerSectionJSON',
-									data:{ section: sectionId }
+									data:{ 
+										section: sectionId,
+										schoolYear:schoolYear
+									}
 								},
 								columns:[
 									{

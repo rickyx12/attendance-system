@@ -57,9 +57,9 @@
         <div class="col-6">
           <div class="card">
             <div class="card-body">
-              <a href="<?= base_url('Settings/lates') ?>">Lates</a>
+              <a href="<?= base_url('Settings/schoolYear') ?>">School Year</a>
               <br>
-              <label style="font-size:13px;">View all late student in a specific period.</label>
+              <label style="font-size:13px;">Add / Edit / Delete School Year.</label>
             </div>
           </div>
         </div>
@@ -87,7 +87,16 @@
           </div>
         </div>
 
-        <div class="col-6">      
+        <div class="col-6">  
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Settings/lates') ?>">Lates</a>
+              <br>
+              <label style="font-size:13px;">View all late student in a specific period.</label>
+            </div>
+          </div>
+
         </div>
       </div>
 

@@ -1,12 +1,12 @@
-$(function(){
-	
-	var base_url = $('body').data('urlbase');
+function loadTable(base_url,param) {
 
 	 var gradeLevelTable = $('#gradeLevelTable').DataTable({
 	 					processing:true,
-						serverSide:true,								
+						serverSide:true,
+						retrieve:true,								
 						ajax:{
 							url: base_url+'GradeLevel/gradeLevelJSON',
+							data:{ schoolYear:param }
 						},
 						columns:[
 							{
@@ -24,7 +24,7 @@ $(function(){
 							{
 								data:null,
 								render:function(data,type,row) {
-									return data.schedule_timein+' - '+data.schedule_timeout
+									return formatTime(data.schedule_timein)+' - '+formatTime(data.schedule_timeout)
 								} 
 							},
 							{
@@ -58,7 +58,7 @@ $(function(){
 										$('#editSection').html("<option value='"+data.sectionId+"' selected='selected'>"+section+"</option>");
 										$('#editScheduleFrom1').val(timeIn);
 										$('#editScheduleTo1').val(timeOut);
-										$('#editSchoolYear').val(schoolYear);
+										$('#editSchoolYearSelect option:contains("'+schoolYear+'")').prop('selected',true);;
 										$('#editStudentPhotoPreview').attr('src',base_url+'uploads/photoID/'+photo);
 										$('#editGuardian').val(guardian);
 										$('#editGuardianContact').val(guardianContact);
@@ -87,18 +87,40 @@ $(function(){
 						]
 					});
 
+}
+
+$(function(){
+	
+	var base_url = $('body').data('urlbase');
+	var schoolYearDefault = $('#schoolYearDefault').val(); 
+
+	loadTable(base_url,schoolYearDefault);
+
+	$('#schoolYearDefault').on('change', function() {
+
+		let schoolYearVal = this.value;
+		let schoolYearTxt = $('#schoolYearDefault option:selected').text();
+
+		if ( $.fn.DataTable.isDataTable( '#gradeLevelTable' ) ) {
+		  $('#gradeLevelTable').DataTable().destroy();
+		}
+
+		loadTable(base_url,schoolYearVal);
+
+	});
 
 
 	$('#newGradeLevelBtn').click(function() {
 
 		$('#newGradeLevelBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let studentId = $('#students-list').val();
 		let gradeLevel = $('#gradeLevelSelect').val();
 		let section = $('#section').val();
 		let schedTimein = $('#timein').val();
 		let schedTimeout = $('#timeout').val();
-		let schoolYear = $('#schoolYear').val();
+		let schoolYear = $('#schoolYearSelect').val();
 		let guardian = $('#guardian').val();
 		let guardianContact = $('#guardianContact').val();
 		let rfCard = $('#rfCard').val();
@@ -134,12 +156,14 @@ $(function(){
 					swal("Good job!", res.message, "success");
 					$('#newGradeLevelModal').modal('hide');
 					gradeLevelTable.ajax.reload(null,false);
-					$('#newGradeLevelBtn').attr('disabled',false);
 
 				}else {
 
 					swal("Ooopss!",res.message, "error");
 				}
+
+				$('#newGradeLevelBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 
 			}
 		});
@@ -151,6 +175,7 @@ $(function(){
 	$('#editGradeLevelBtn').click(function() {
 
 		$('#editGradeLevelBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);
 
 		let form = $('#editUploadStudentPhoto')[0];
 		let formData = new FormData(form);
@@ -160,7 +185,7 @@ $(function(){
 		let section = $('#editSection').val();
 		let scheduleTimein = $('#editScheduleFrom1').val();
 		let scheduleTimeout = $('#editScheduleTo1').val();
-		let schoolYear = $('#editSchoolYear').val();
+		let schoolYear = $('#editSchoolYearSelect').val();
 		let guardian = $('#editGuardian').val();
 		let guardianContact = $('#editGuardianContact').val();
 		let rfCard = $('#editRFCard').val();
@@ -193,11 +218,14 @@ $(function(){
 					swal("Good job!", res.message, "success");
 					$('#editGradeLevelModal').modal('hide');
 					gradeLevelTable.ajax.reload(null,false);
-					$('#editGradeLevelBtn').attr('disabled',false);					
+					
 				}else {
 
 					swal("Ooopss!",res.message, "error");					
 				}				
+
+				$('#editGradeLevelBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
 
 			}
 		});
