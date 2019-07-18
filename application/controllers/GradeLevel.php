@@ -7,6 +7,7 @@ class GradeLevel extends CI_Controller {
  		parent::__construct();
  		$this->load->helper('url');
  		$this->load->model('gradelevel_model');
+ 		$this->load->model('utility_model');
  		$this->load->library('session');
  	}
 
@@ -46,34 +47,42 @@ class GradeLevel extends CI_Controller {
 			$guardianContact = $this->input->post('guardianContact');
 			$rfCard = $this->input->post('rfCard');
 
+			if($this->gradelevel_model->getGradeLevelById(array($studentId,$schoolYear))->num_rows() == 0) {
 
-			if($studentId != "" || $gradeLevel != "" || $section != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
+				if($studentId != "" || $gradeLevel != "" || $section != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
 
-				$filteredTimein  = date("H:i", strtotime($timeIn));
-				$filteredTimeout = date("H:i", strtotime($timeOut));	
+					$filteredTimein  = date("H:i", strtotime($timeIn));
+					$filteredTimeout = date("H:i", strtotime($timeOut));	
 
-				$data = array(
-					$studentId,
-					$gradeLevel,
-					$section,
-					$schoolYear,
-					$filteredTimein,
-					$filteredTimeout,
-					$filename,
-					$guardian,
-					$guardianContact,
-					$rfCard,
-					$dateAdded
-				);
+					$data = array(
+						$studentId,
+						$gradeLevel,
+						$section,
+						$schoolYear,
+						$filteredTimein,
+						$filteredTimeout,
+						$filename,
+						$guardian,
+						$guardianContact,
+						$rfCard,
+						$dateAdded
+					);
 
-				$this->gradelevel_model->create($data);
+					$this->gradelevel_model->create($data);
 
-				$data = array("status" => "success", "message" => "Records Added.");
+					$data = array("status" => "success", "message" => "Records Added.");
 
+				}else {
+					$data = array("status" => "error", "message" => "Please Fill up all fields.");
+				}
 			}else {
-				$data = array("status" => "error", "message" => "Please Fill up all fields.");
-			}
 
+				$lastName = $this->utility_model->selectNow('students','last_name','id',$studentId)->row()->last_name;
+				$firstName = $this->utility_model->selectNow('students','first_name','id',$studentId)->row()->first_name;
+				$sy = $this->utility_model->selectNow('settings_schoolyear','school_year','id',$schoolYear)->row()->school_year;
+
+				$data = array("status" => "error", "message" => $lastName.", ".$firstName." is Already on the list of Enrollment for the S.Y ".$sy);
+			}
 		}
 
 		echo json_encode($data);

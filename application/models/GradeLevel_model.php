@@ -13,7 +13,7 @@ class GradeLevel_model extends CI_Model {
 
 	public function getGradeLevelById($data) {
 
-		$sql = "SELECT * FROM grade_level WHERE id = ? AND status = 1 ORDER BY id DESC ";
+		$sql = "SELECT * FROM grade_level WHERE student_id = ? AND school_year = ? AND status = 1 ORDER BY id DESC ";
 		return $this->db->query($sql,$data);			
 	}
 
@@ -132,5 +132,4 @@ class GradeLevel_model extends CI_Model {
 			return $this->db->query($sql);
 		}
 	}
-
 }
