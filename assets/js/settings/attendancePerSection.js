@@ -7,7 +7,7 @@ $(function(){
 	},function(start,end,label) {
 
 		let sectionVal = $('#section').val();
-		let sectionText = $('#section option:selected').text;
+		let sectionText = $('#section option:selected').text();
 		let from = start.format('YYYY-MM-DD');
 		let to = end.format('YYYY-MM-DD');
 
