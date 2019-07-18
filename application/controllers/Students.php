@@ -230,4 +230,25 @@ class Students extends CI_Controller {
     }
 
 
+    public function studentsPerCourseJSON() {
+
+        $this->isLogged();
+
+        $draw = $this->input->get('draw');
+        $start = $this->input->get('start');
+        $length = $this->input->get('length');
+        $search = $this->input->get('search')['value'];
+        $course = $this->input->get('course');
+        $schoolYear = $this->input->get('schoolYear');
+
+        $data = array(
+            "draw" => $draw,
+            "recordsTotal" => $this->students_model->getStudentsPerCourse(null,null,null,$course,$schoolYear)->num_rows(),
+            "recordsFiltered" => $this->students_model->getStudentsPerCourse(null,null,null,$course,$schoolYear)->num_rows(),
+            "data" => $this->students_model->getStudentsPerCourse($start,$length,$search,$course,$schoolYear)->result()
+        );
+
+        echo json_encode($data);            
+    }
+
 }

@@ -7,6 +7,7 @@ class Settings extends CI_Controller {
  		parent::__construct();
  		$this->load->helper('url');
  		$this->load->model('settings_model');
+ 		$this->load->model('course_model');
  		$this->load->model('timelog_model');
  		$this->load->library('session');
  	}
@@ -117,6 +118,21 @@ class Settings extends CI_Controller {
         echo json_encode($data);            
     }
 
+
+    public function courseStudents() {
+
+ 		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page',
+			'courses' => $this->course_model->getCourse('','','')->result(),
+			'schoolYear' => $this->settings_model->getSchoolYear('','','')->result()
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/course/students/index.php');
+		$this->load->view('includes/footer');   	
+    }
 
     public function gradeLevelStudents() {
 

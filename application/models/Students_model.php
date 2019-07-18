@@ -177,4 +177,56 @@ class Students_model extends CI_Model {
 		return $this->db->query($sql);
 	}
 
+
+	public function getStudentsPerCourse($start,$limit,$search,$course,$schoolYear) {
+
+		$start1 = $this->db->escape_str($start);
+		$limit1 = $this->db->escape_str($limit);
+		$search1 = $this->db->escape_str($search);
+		$course1 = $this->db->escape_str($course);
+		$sy = $this->db->escape_str($schoolYear);
+
+		if($limit > 0 || $limit != '') {
+
+			if($search1 != "") {
+
+				$sql = "
+				SELECT s.last_name, s.first_name, s.middle_name, ss.section
+				FROM students s ,grade_level gl, settings_section ss
+				WHERE s.id = gl.student_id
+				AND gl.section = ss.id
+				AND gl.course = ".$course1."
+				AND gl.school_year = '".$sy."'
+				AND (s.last_name LIKE '".$search1."%') 
+				AND gl.status = 1 
+				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;
+			
+			}else {
+			
+				$sql = "
+				SELECT s.last_name, s.first_name, s.middle_name, ss.section
+				FROM students s, grade_level gl, settings_section ss
+				WHERE s.id = gl.student_id
+				AND gl.section = ss.id 
+				AND gl.course = ".$course1."
+				AND gl.school_year = '".$sy."'
+				AND gl.status = 1 
+				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;	
+			}
+
+		}else {
+
+			$sql = "
+			SELECT gl.* FROM students s ,grade_level gl, settings_section ss
+			WHERE s.id = gl.student_id 
+			AND gl.section = ss.id
+			AND gl.course = ".$course1."
+			AND gl.school_year = '".$sy."'
+			AND gl.status = 1";
+		}
+
+		return $this->db->query($sql);
+	}
+
+
 }

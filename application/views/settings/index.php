@@ -45,7 +45,7 @@
         <div class="col-6">
           <div class="card">
             <div class="card-body">
-              <a href="<?= base_url('Settings/sectionStudents') ?>">Student per Sections</a>
+              <a href="<?= base_url('Settings/sectionStudents') ?>">Students per Sections</a>
               <br>
               <label style="font-size:13px;">View all students on every section</label>
             </div>
@@ -103,6 +103,15 @@
 
       <div class="row mt-2">
         <div class="col-6">
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Settings/courseStudents') ?>">Students Per Course</a>
+              <br>
+              <label style="font-size:13px;">View all students on every grade level.</label>
+            </div>
+          </div>
+
         </div>
 
         <div class="col-6">  
