@@ -30,6 +30,12 @@ function loadTable(base_url,param) {
 							{
 								data:null,
 								render:function(data,type,row) {
+									return data.course
+								} 
+							},							
+							{
+								data:null,
+								render:function(data,type,row) {
 
 									$(document).on('click','#edit-btn'+data.gradeLevelId,function(e) {
 
@@ -39,6 +45,7 @@ function loadTable(base_url,param) {
 										let gradeLevel = $(this).data('gradelevel');
 										let sectionId = $(this).data('sectionId');
 										let section = $(this).data('section');
+										let course = $(this).data('course');
 										let timeIn = $(this).data('timein');
 										let timeOut = $(this).data('timeout');
 										let schoolYear = $(this).data('schoolyear');
@@ -47,12 +54,11 @@ function loadTable(base_url,param) {
 										let guardianContact = $(this).data('guardiancontact');
 										let rfCard = $(this).data('rfcard');
 
-										console.log(gradeLevel);
-
 										$('#gradeLevelId').val(id);
 										$('#edit-students-list').html('<option value="'+studentId+'" selected="selected">'+studentName+'</option>');
 										$('#editGradeLevelSelect option:contains("'+gradeLevel+'")').prop('selected',true);
 										$('#editSection').html("<option value='"+data.sectionId+"' selected='selected'>"+section+"</option>");
+										$('#editCourse option:contains("'+course+'")').prop('selected',true);
 										$('#editScheduleFrom1').val(timeIn);
 										$('#editScheduleTo1').val(timeOut);
 										$('#editSchoolYearSelect option:contains("'+schoolYear+'")').prop('selected',true);;
@@ -75,7 +81,7 @@ function loadTable(base_url,param) {
 									});
 
 									let buttons = "";
-									buttons += "<button type='button' id='edit-btn"+data.gradeLevelId+"' data-id='"+data.gradeLevelId+"' data-studentname='"+data.last_name+", "+data.first_name+"' data-settingsgradelevelid='"+data.settingsGradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-sectionid='"+data.sectionId+"' data-section='"+data.section+"' data-timein='"+data.schedule_timein+"' data-timeout='"+data.schedule_timeout+"' data-schoolyear='"+data.school_year+"' data-photo='"+data.photo+"' data-guardian='"+data.guardian+"' data-guardiancontact='"+data.guardian_contact+"' data-rfcard='"+data.identifierTag+"' class='btn btn-primary' data-toggle='modal' data-target='#editGradeLevelModal'><i class='fa fa-pen'></i></button>";
+									buttons += "<button type='button' id='edit-btn"+data.gradeLevelId+"' data-id='"+data.gradeLevelId+"' data-studentname='"+data.last_name+", "+data.first_name+"' data-settingsgradelevelid='"+data.settingsGradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-sectionid='"+data.sectionId+"' data-section='"+data.section+"' data-course='"+data.course+"' data-timein='"+data.schedule_timein+"' data-timeout='"+data.schedule_timeout+"' data-schoolyear='"+data.school_year+"' data-photo='"+data.photo+"' data-guardian='"+data.guardian+"' data-guardiancontact='"+data.guardian_contact+"' data-rfcard='"+data.identifierTag+"' class='btn btn-primary' data-toggle='modal' data-target='#editGradeLevelModal'><i class='fa fa-pen'></i></button>";
 									buttons += " <button type='button' id='delete-btn"+data.gradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-student='"+data.last_name+", "+data.first_name+"' class='btn btn-danger' data-id='"+data.gradeLevelId+"' data-toggle='modal' data-target='#deleteGradeLevelModal'><i class='fa fa-trash'></i></button>";
 
 									return buttons;
@@ -115,6 +121,7 @@ $(function(){
 		let studentId = $('#students-list').val();
 		let gradeLevel = $('#gradeLevelSelect').val();
 		let section = $('#section').val();
+		let course = $('#courseSelect').val();
 		let schedTimein = $('#timein').val();
 		let schedTimeout = $('#timeout').val();
 		let schoolYear = $('#schoolYearSelect').val();
@@ -128,6 +135,7 @@ $(function(){
 		formData.append('studentId',studentId);
 		formData.append('gradeLevel',gradeLevel);
 		formData.append('section',section);
+		formData.append('course',course);
 		formData.append('schedTimein',schedTimein);
 		formData.append('schedTimeout',schedTimeout);
 		formData.append('schoolYear',schoolYear);
@@ -159,6 +167,7 @@ $(function(){
 					$('#students-list').html('<option></option>');
 					$("#gradeLevelSelect").val($("#gradeLevelSelect option:first").val());
 					$('#section').html('<option></option>');
+					$("#courseSelect").val($("#courseSelect option:first").val());
 					$('#timein').val('');
 					$('#timeout').val('');
 					$("#schoolYearSelect").val($("#schoolYearSelect option:first").val());
@@ -191,6 +200,7 @@ $(function(){
 		let gradeLevelId = $('#gradeLevelId').val();
 		let gradeLevel = $('#editGradeLevelSelect').val();
 		let section = $('#editSection').val();
+		let course = $('#editCourse').val();
 		let scheduleTimein = $('#editScheduleFrom1').val();
 		let scheduleTimeout = $('#editScheduleTo1').val();
 		let schoolYear = $('#editSchoolYearSelect').val();
@@ -201,6 +211,7 @@ $(function(){
 		formData.append('gradeLevelId',gradeLevelId);
 		formData.append('gradeLevel',gradeLevel);
 		formData.append('section',section);
+		formData.append('course',course);
 		formData.append('scheduleTimein',scheduleTimein);
 		formData.append('scheduleTimeout',scheduleTimeout);
 		formData.append('schoolYear',schoolYear);

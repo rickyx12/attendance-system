@@ -8,6 +8,7 @@ class Students extends CI_Controller {
  		$this->load->helper('url');
  		$this->load->model('students_model');
  		$this->load->model('settings_model');
+        $this->load->model('course_model');
  		$this->load->model('gradelevel_model');
  		$this->load->library('session');
  	}
@@ -28,7 +29,8 @@ class Students extends CI_Controller {
 		$data = array(
 			'page' => 'students-page',
 			'gradeLevel' => $this->settings_model->getGradeLevel(null,null,null)->result(),
-            'schoolYear' => $this->settings_model->getSchoolYear(null,null,null)->result()
+            'schoolYear' => $this->settings_model->getSchoolYear(null,null,null)->result(),
+            'courses' => $this->course_model->getCourse(null,null,null)->result()
 		);
 
 		$this->load->view('includes/header',$data);

@@ -38,6 +38,7 @@ class GradeLevel extends CI_Controller {
 			$studentId = $this->input->post('studentId');
 			$gradeLevel = $this->input->post('gradeLevel');
 			$section = $this->input->post('section');
+			$course = $this->input->post('course');
 			$schoolYear = $this->input->post('schoolYear');
 			$timeIn = $this->input->post('schedTimein');
 			$timeOut = $this->input->post('schedTimeout');
@@ -47,7 +48,7 @@ class GradeLevel extends CI_Controller {
 			$guardianContact = $this->input->post('guardianContact');
 			$rfCard = $this->input->post('rfCard');
 
-			if($this->gradelevel_model->getGradeLevelById(array($studentId,$schoolYear))->num_rows() == 0) {
+			if($this->gradelevel_model->getGradeLevelByStudentId(array($studentId,$schoolYear))->num_rows() == 0) {
 
 				if($studentId != "" || $gradeLevel != "" || $section != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
 
@@ -58,6 +59,7 @@ class GradeLevel extends CI_Controller {
 						$studentId,
 						$gradeLevel,
 						$section,
+						$course,
 						$schoolYear,
 						$filteredTimein,
 						$filteredTimeout,
@@ -105,6 +107,7 @@ class GradeLevel extends CI_Controller {
 		$gradeLevelId = $this->input->post('gradeLevelId');
 		$gradeLevel = $this->input->post('gradeLevel');
 		$section = $this->input->post('section');
+		$course = $this->input->post('course');
 		$scheduleTimein = $this->input->post('scheduleTimein');
 		$scheduleTimeout = $this->input->post('scheduleTimeout');
 		$schoolYear = $this->input->post('schoolYear');
@@ -129,6 +132,7 @@ class GradeLevel extends CI_Controller {
 			$data = array(
 				$gradeLevel,
 				$section,
+				$course,
 				$schoolYear,
 				$filteredTimein,
 				$filteredTimeout,

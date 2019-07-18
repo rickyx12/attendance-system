@@ -44,6 +44,16 @@
           </div>
 
           <div class="form-group">
+            <label>Course</label>
+            <select id="editCourse" class="form-control courseSelect">
+              <option></option>
+              <?php foreach($courses as $course): ?>
+                <option value="<?= $course->id ?>"><?= $course->course ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>  
+
+          <div class="form-group">
             <label>Schedule</label>
             <div class="row">
               <div class="col-6">

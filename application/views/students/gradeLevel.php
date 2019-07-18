@@ -22,6 +22,7 @@
             <th>Student</th>
             <th>Grade Level</th>
             <th>Schedule</th>
+            <th>Course</th>
             <th></th>
           </tr>
         </thead>
