@@ -80,9 +80,9 @@
         <div class="col-6">
           <div class="card">
             <div class="card-body">
-              <a href="<?= base_url('Settings/attendance') ?>">Attendance</a>
+              <a href="<?= base_url('Course/index') ?>">Course</a>
               <br>
-              <label style="font-size:13px;">View attendance of specific student.</label>
+              <label style="font-size:13px;">Add / Edit / Delete Course.</label>
             </div>
           </div>
         </div>
@@ -94,6 +94,24 @@
               <a href="<?= base_url('Settings/lates') ?>">Lates</a>
               <br>
               <label style="font-size:13px;">View all late student in a specific period.</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="col-6">
+        </div>
+
+        <div class="col-6">  
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Settings/attendance') ?>">Attendance</a>
+              <br>
+              <label style="font-size:13px;">View attendance of specific student.</label>
             </div>
           </div>
 
