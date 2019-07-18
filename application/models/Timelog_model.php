@@ -182,4 +182,29 @@ class Timelog_model extends CI_Model {
 		return $this->db->query($sql);			
 	}
 
+
+	public function getSectionAttendanceByDate($section,$date) {
+
+		$section1 = $this->db->escape_str($section);
+		$date1 = $this->db->escape_str($date);
+
+		$sql = "
+		SELECT t.id,CONCAT_WS(' ',s.last_name,s.first_name,s.middle_name) as student,t.dateTap, t.timeTap, t.type, gl.schedule_timein, gl.schedule_timeout
+		FROM grade_level gl
+		INNER JOIN students s
+		ON s.id = gl.student_id
+		INNER JOIN settings_gradelevel sg
+		ON gl.grade_level = sg.id 
+		INNER JOIN settings_section ss
+		ON gl.section = ss.id
+		LEFT JOIN timelog t
+		ON gl.id = t.grade_level_id
+		AND t.dateTap = '".$date1."'
+		WHERE gl.status = 1
+		AND gl.section = '".$section1."'
+		ORDER BY t.id ASC";
+		
+		return $this->db->query($sql);			
+	}
+
 }

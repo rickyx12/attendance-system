@@ -512,4 +512,61 @@ class Settings extends CI_Controller {
 	}
 
 
+	public function attendancePerSection() {
+
+		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page',
+			'sections' => $this->settings_model->getSection(null,null,null)->result()
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/section/attendance/index');
+		$this->load->view('includes/footer');		
+	}
+
+
+	public function getSectionAttendanceByDate() {
+
+		$section = $this->input->get('section');
+		$draw = $this->input->get('draw');
+		$from = $this->input->get('from');
+		$to = $this->input->get('to');
+
+		$begin = new DateTime($from);
+		$end = new DateTime($to);
+
+		$dataArr = [];
+
+		for($x = $begin ;$x <= $end; $x->modify('+1 day')) {
+
+			$result = $this->timelog_model->getSectionAttendanceByDate($section,$x->format("Y-m-d"))->result();
+
+		    foreach($result as $res) {
+		    	$data = new stdClass();
+		    	$data->id = $res->id;
+		    	$data->student = $res->student;
+		    	$data->timeTap = $res->timeTap;
+		    	$data->type = $res->type;
+		    	$data->day = $x->format("l");
+		    	$data->sched_timein = $res->schedule_timein;
+		    	$data->sched_timeout = $res->schedule_timeout;
+		    	$data->date = $x->format("Y-m-d");
+		    	array_push($dataArr,$data);
+		    }	
+
+		}
+
+        $data = array(
+            "draw" => $draw,
+            "recordsTotal" => count($dataArr),
+            "recordsFiltered" => count($dataArr),
+            "data" => $dataArr
+        );
+
+		echo json_encode($data);	
+	}
+
+
 }

@@ -127,6 +127,24 @@
         </div>
       </div>
 
+      <div class="row mt-2">
+        <div class="col-6">
+
+        </div>
+
+        <div class="col-6">  
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Settings/attendancePerSection') ?>">Attendance Per Section</a>
+              <br>
+              <label style="font-size:13px;">View attendance of specific section.</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 
