@@ -108,7 +108,7 @@
             <div class="card-body">
               <a href="<?= base_url('Account/index') ?>">System Users</a>
               <br>
-              <label style="font-size:13px;">Add / Edit / Delete System User.</label>
+              <label style="font-size:13px;">Add / Delete System User.</label>
             </div>
           </div>
 
