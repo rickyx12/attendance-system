@@ -106,9 +106,9 @@
 
           <div class="card">
             <div class="card-body">
-              <a href="<?= base_url('Settings/courseStudents') ?>">Students Per Course</a>
+              <a href="<?= base_url('Account/index') ?>">System Users</a>
               <br>
-              <label style="font-size:13px;">View all students on every grade level.</label>
+              <label style="font-size:13px;">Add / Edit / Delete System User.</label>
             </div>
           </div>
 
@@ -129,6 +129,14 @@
 
       <div class="row mt-2">
         <div class="col-6">
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Settings/courseStudents') ?>">Students Per Course</a>
+              <br>
+              <label style="font-size:13px;">View all students on every grade level.</label>
+            </div>
+          </div>
 
         </div>
 
