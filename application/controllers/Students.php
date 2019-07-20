@@ -45,7 +45,8 @@ class Students extends CI_Controller {
 		$lastName = $this->input->post('lastName');
 		$firstName = $this->input->post('firstName');
 		$middleName = $this->input->post('middleName');
-
+        $birthdate = $this->input->post('birthdate');
+        $gender = $this->input->post('gender');
 
 		if($lastName != "" || $firstName != "" || $middleName != "") {
 
@@ -56,7 +57,9 @@ class Students extends CI_Controller {
 				$data = array(
 					$lastName,
 					$firstName,
-					$middleName
+					$middleName,
+                    $birthdate,
+                    $gender
 				);
 
 				$this->students_model->create($data);
@@ -84,8 +87,9 @@ class Students extends CI_Controller {
 		$firstName = $this->input->post('firstName');
 		$middleName = $this->input->post('middleName');
 		$gradeLevel = $this->input->post('gradeLevel');
+        $birthdate = $this->input->post('birthdate');
+        $gender = $this->input->post('gender');
 		$id = $this->input->post('id');
-
 
 		if($lastName != "" || $firstName != "" || $middleName != "") {
 
@@ -93,6 +97,8 @@ class Students extends CI_Controller {
 					$lastName,
 					$firstName,
 					$middleName,
+                    $birthdate,
+                    $gender,
 					$id
 				);
 

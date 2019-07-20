@@ -11,6 +11,9 @@
         <thead>
           <tr>
             <th>Name</th>
+            <th>Age</th>
+            <th>Birthdate</th>
+            <th>Gender</th>
             <th></th>
           </tr>
         </thead>

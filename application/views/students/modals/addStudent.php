@@ -21,6 +21,19 @@
             <input type="text" id="middleName" class="form-control">
           </div>
 
+          <div class="form-group">
+            <label>Birthdate</label>
+            <input type="text" id="birthdate" name="dates" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Gender</label>
+            <select id="gender" class="form-control">
+              <option value='male'>male</option>
+              <option value='female'>female</option>
+            </select>
+          </div>
+
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger closeModalBtn" data-dismiss="modal">Close</button>

@@ -64,3 +64,9 @@ function formatTime(param) {
 
 	return hour+":"+time[1]+" "+mode;
 }
+
+function ucFirst(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const getAge = birthDate => Math.floor((new Date() - new Date(birthDate).getTime()) / 3.15576e+10)

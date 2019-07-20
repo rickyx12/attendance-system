@@ -7,7 +7,7 @@ class Students_model extends CI_Model {
     }
 
 	public function create($data) {
-		$sql = "INSERT INTO students(last_name,first_name,middle_name) VALUES (?,?,?)";
+		$sql = "INSERT INTO students(last_name,first_name,middle_name,birthdate,gender) VALUES (?,?,?,?,?)";
 		$this->db->query($sql, $data);			
 	}
 
@@ -68,7 +68,7 @@ class Students_model extends CI_Model {
 
 	public function update($data) {
 
-		$sql = "UPDATE students SET last_name = ?, first_name = ?, middle_name = ? WHERE id = ? AND status = 1";
+		$sql = "UPDATE students SET last_name = ?, first_name = ?, middle_name = ?, birthdate = ?, gender = ? WHERE id = ? AND status = 1";
 		$this->db->query($sql,$data);		
 	}
 

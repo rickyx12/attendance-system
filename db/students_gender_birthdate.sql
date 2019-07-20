@@ -1,0 +1,5 @@
+ALTER TABLE students
+ADD COLUMN gender VARCHAR(20) NOT NULL AFTER middle_name;
+
+ALTER TABLE students
+ADD COLUMN birthdate DATE NOT NULL AFTER gender;
