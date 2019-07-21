@@ -153,6 +153,33 @@
         </div>
       </div>
 
+      <div class="row mt-2">
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Gender/course') ?>">Gender Per Course</a>
+              <br>
+              <label style="font-size:13px;">View Male / Female per Course.</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-6">  
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Gender/section') ?>">Gender Per Section</a>
+              <br>
+              <label style="font-size:13px;">View Male / Femail per Section.</label>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
     </div>
   </div>
 
