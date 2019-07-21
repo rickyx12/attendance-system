@@ -179,6 +179,24 @@
         </div>
       </div>
 
+      <div class="row mt-2">
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Gender/gradeLevel') ?>">Gender Per Grade Level</a>
+              <br>
+              <label style="font-size:13px;">View Male / Female per Grade Level.</label>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-6">  
+
+        </div>
+      </div>
+
 
     </div>
   </div>

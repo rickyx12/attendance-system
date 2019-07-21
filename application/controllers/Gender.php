@@ -49,6 +49,21 @@ class Gender extends CI_Controller {
 		$this->load->view('includes/footer');
 	}
 
+	public function gradeLevel()
+	{
+		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page',
+			'gradeLevel' => $this->settings_model->getGradeLevel(null,null,null)->result(),
+			'schoolYear' => $this->settings_model->getSchoolYear(null,null,null)->result()
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/gender/gradeLevel');
+		$this->load->view('includes/footer');
+	}
+
     public function courseJSON() {
 
 		$this->isLogged();
@@ -88,6 +103,28 @@ class Gender extends CI_Controller {
             "recordsTotal" => $this->gender_model->getGenderPerSection(null,null,null,$section,$gender,$schoolYear)->num_rows(),
             "recordsFiltered" => $this->gender_model->getGenderPerSection(null,null,null,$section,$gender,$schoolYear)->num_rows(),
             "data" => $this->gender_model->getGenderPerSection($start,$length,$search,$section,$gender,$schoolYear)->result()
+        );
+
+        echo json_encode($data);            
+    }
+
+    public function gradeLevelJSON() {
+
+		$this->isLogged();
+
+        $draw = $this->input->get('draw');
+        $start = $this->input->get('start');
+        $length = $this->input->get('length');
+        $search = $this->input->get('search')['value'];
+        $gradeLevel = $this->input->get('gradeLevel');
+        $gender = $this->input->get('gender');
+        $schoolYear = $this->input->get('schoolYear');
+
+        $data = array(
+            "draw" => $draw,
+            "recordsTotal" => $this->gender_model->getGenderPerGradeLevel(null,null,null,$gradeLevel,$gender,$schoolYear)->num_rows(),
+            "recordsFiltered" => $this->gender_model->getGenderPerGradeLevel(null,null,null,$gradeLevel,$gender,$schoolYear)->num_rows(),
+            "data" => $this->gender_model->getGenderPerGradeLevel($start,$length,$search,$gradeLevel,$gender,$schoolYear)->result()
         );
 
         echo json_encode($data);            
