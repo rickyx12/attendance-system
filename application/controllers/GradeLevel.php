@@ -50,32 +50,37 @@ class GradeLevel extends CI_Controller {
 
 			if($this->gradelevel_model->getGradeLevelByStudentId(array($studentId,$schoolYear))->num_rows() == 0) {
 
-				if($studentId != "" || $gradeLevel != "" || $section != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
+				if($this->gradelevel_model->getGradeLevelByIdentifierTag($rfCard)->num_rows() == 0) {
+					if($studentId != "" || $gradeLevel != "" || $section != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
 
-					$filteredTimein  = date("H:i", strtotime($timeIn));
-					$filteredTimeout = date("H:i", strtotime($timeOut));	
+						$filteredTimein  = date("H:i", strtotime($timeIn));
+						$filteredTimeout = date("H:i", strtotime($timeOut));	
 
-					$data = array(
-						$studentId,
-						$gradeLevel,
-						$section,
-						$course,
-						$schoolYear,
-						$filteredTimein,
-						$filteredTimeout,
-						$filename,
-						$guardian,
-						$guardianContact,
-						$rfCard,
-						$dateAdded
-					);
+						$data = array(
+							$studentId,
+							$gradeLevel,
+							$section,
+							$course,
+							$schoolYear,
+							$filteredTimein,
+							$filteredTimeout,
+							$filename,
+							$guardian,
+							$guardianContact,
+							$rfCard,
+							$dateAdded
+						);
 
-					$this->gradelevel_model->create($data);
+						$this->gradelevel_model->create($data);
 
-					$data = array("status" => "success", "message" => "Records Added.");
+						$data = array("status" => "success", "message" => "Records Added.");
 
+					}else {
+						$data = array("status" => "error", "message" => "Please Fill up all fields.");
+					}
 				}else {
-					$data = array("status" => "error", "message" => "Please Fill up all fields.");
+
+					$data = array("status" => "error", "message" => "RF Card already assigned to other student.");
 				}
 			}else {
 
@@ -127,28 +132,36 @@ class GradeLevel extends CI_Controller {
         	$filename = $this->upload->data()['file_name'];
 		}
 
-		if($gradeLevel != "" || $scheduleTimein != "" || $scheduleTimeout != "" || $schoolYear != "") {
 
-			$data = array(
-				$gradeLevel,
-				$section,
-				$course,
-				$schoolYear,
-				$filteredTimein,
-				$filteredTimeout,
-				$filename,
-				$guardian,
-				$guardianContact,
-				$rfCard,
-				$gradeLevelId
-			);
+		if($this->gradelevel_model->getGradeLevelByIdentifierTag($rfCard)->num_rows() == 0) {
 
-			$this->gradelevel_model->update($data);
-		
-			$data = array("status" => "success", "message" => "Successfully Updated.");
+			if($gradeLevel != "" || $scheduleTimein != "" || $scheduleTimeout != "" || $schoolYear != "") {
+
+				$data = array(
+					$gradeLevel,
+					$section,
+					$course,
+					$schoolYear,
+					$filteredTimein,
+					$filteredTimeout,
+					$filename,
+					$guardian,
+					$guardianContact,
+					$rfCard,
+					$gradeLevelId
+				);
+
+				$this->gradelevel_model->update($data);
+			
+				$data = array("status" => "success", "message" => "Successfully Updated.");
+			}else {
+
+				$data = array("status" => "error", "message" => "Please fill up all fields.");
+			}
+
 		}else {
 
-			$data = array("status" => "error", "message" => "Please fill up all fields.");
+			$data = array("status" => "error", "message" => "RF Card already assigned to other student.");
 		}
 
 		echo json_encode($data);
