@@ -9,6 +9,7 @@ class Settings extends CI_Controller {
  		$this->load->model('settings_model');
  		$this->load->model('course_model');
  		$this->load->model('timelog_model');
+ 		$this->load->model('account_model');
  		$this->load->library('session');
  	}
 
@@ -24,7 +25,10 @@ class Settings extends CI_Controller {
 
 		$this->isLogged();
 
-		$data = array('page' => 'settings-page');
+		$data = array(
+			'page' => 'settings-page',
+			'isAdmin' => $this->account_model->getUser($this->session->id)->row()->admin
+		);
 
 		$this->load->view('includes/header',$data);
 		$this->load->view('settings/index');

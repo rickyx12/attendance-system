@@ -38,7 +38,7 @@ class Timelog extends CI_Controller {
 		curl_close($ch);
 		 
 		//Print the data out onto the page.
-		// echo $data;
+		return $data;
 	}
 
 	public function timeIn() {
@@ -73,7 +73,7 @@ class Timelog extends CI_Controller {
 			$cpNumber = urlencode($student->guardian_contact);
 			$message = urlencode($message);			
 
-			$this->sendSMS($cpNumber,$message);
+			// $this->sendSMS($cpNumber,$message);
 
 			$tapData = array(
 				$student->gradeLevelId,
@@ -87,14 +87,20 @@ class Timelog extends CI_Controller {
 			// $url = 'http://192.168.0.92/action_page?cpNumber='.$cpNumber.'&message='.$message;
 			// $contents = file_get_contents($url);
 
-			$data = array(
-				'status' => 'success', 
-				'student' => $student->last_name.", ".$student->first_name,
-				'photo' => $student->photo, 
-				'tap' => $typeMessage,
-				'time' => $timeFrontEnd, 
-				'date' => $dateFrontend
-			);
+			if($this->sendSMS($cpNumber,$message) != "") {
+
+				$data = array(
+					'status' => 'success', 
+					'student' => $student->last_name.", ".$student->first_name,
+					'photo' => $student->photo,
+					'fetcher' => $student->fetcher, 
+					'tap' => $typeMessage,
+					'time' => $timeFrontEnd, 
+					'date' => $dateFrontend
+				);
+			}else {
+				$data = array('status' => 'error', 'message' => 'SMS Error.');
+			}
 
 		}else {
 

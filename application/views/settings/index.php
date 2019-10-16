@@ -102,17 +102,32 @@
 
 
       <div class="row mt-2">
-        <div class="col-6">
 
-          <div class="card">
-            <div class="card-body">
-              <a href="<?= base_url('Account/index') ?>">System Users</a>
-              <br>
-              <label style="font-size:13px;">Add / Delete System User.</label>
+        <?php if($isAdmin == 1): ?>
+          <div class="col-6">
+
+            <div class="card">
+              <div class="card-body">
+                <a href="<?= base_url('Account/index') ?>">System Users</a>
+                <br>
+                <label style="font-size:13px;">Add / Delete System User.</label>
+              </div>
             </div>
-          </div>
 
-        </div>
+          </div>
+        <?php else: ?>
+          <div class="col-6">
+
+            <div class="card">
+              <div class="card-body">
+                <a href="<?= base_url('Account/changePassword') ?>">Change password</a>
+                <br>
+                <label style="font-size:13px;">Change your password.</label>
+              </div>
+            </div>
+
+          </div>
+        <?php endif ?>
 
         <div class="col-6">  
 

@@ -50,6 +50,7 @@ class GradeLevel_model extends CI_Model {
 					gl.schedule_timein,
 					gl.schedule_timeout,
 					gl.photo,
+					gl.fetcher,
 					gl.identifierTag,
 					gl.guardian,
 					gl.guardian_contact 
@@ -88,6 +89,7 @@ class GradeLevel_model extends CI_Model {
 					gl.schedule_timein,
 					gl.schedule_timeout,
 					gl.photo,
+					gl.fetcher,
 					gl.identifierTag,
 					gl.guardian,
 					gl.guardian_contact
@@ -125,6 +127,7 @@ class GradeLevel_model extends CI_Model {
 				gl.schedule_timein,
 				gl.schedule_timeout,
 				gl.photo,
+				gl.fetcher,
 				gl.identifierTag,
 				gl.guardian,
 				gl.guardian_contact 
@@ -168,10 +171,11 @@ class GradeLevel_model extends CI_Model {
 	public function getGradeLevelByIdentifierTag($data) {
 
 		$sql = "
-		SELECT s.last_name, s.first_name, gl.id as gradeLevelId, gl.photo, gl.guardian_contact 
+		SELECT s.last_name, s.first_name, gl.id as gradeLevelId, gl.photo, gl.fetcher, gl.guardian_contact, gl.identifierTag 
 		FROM students s,grade_level gl 
 		WHERE s.id = gl.student_id
 		AND gl.identifierTag = ? 
+		AND gl.identifierTag != ''
 		AND gl.status = 1";
 		return $this->db->query($sql,$data);			
 	}
@@ -179,6 +183,12 @@ class GradeLevel_model extends CI_Model {
 	public function update($data) {
 
 		$sql = "UPDATE grade_level SET grade_level = ?, section = ?, course = ?, school_year = ?, schedule_timein = ?, schedule_timeout = ?, photo = ?, guardian = ?, guardian_contact = ?, identifierTag = ? WHERE id = ?";
+		$this->db->query($sql,$data);		
+	}
+
+	public function updateFetcher($data) {
+
+		$sql = "UPDATE grade_level SET fetcher = ? WHERE id = ?";
 		$this->db->query($sql,$data);		
 	}
 

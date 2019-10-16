@@ -132,8 +132,10 @@ class GradeLevel extends CI_Controller {
         	$filename = $this->upload->data()['file_name'];
 		}
 
-
-		if($this->gradelevel_model->getGradeLevelByIdentifierTag($rfCard)->num_rows() == 0) {
+		if(
+			$this->gradelevel_model->getGradeLevelByIdentifierTag($rfCard)->num_rows() == 0 ||
+			($this->gradelevel_model->getGradeLevelByIdentifierTag($rfCard)->row()->gradeLevelId == $gradeLevelId)
+		) {
 
 			if($gradeLevel != "" || $scheduleTimein != "" || $scheduleTimeout != "" || $schoolYear != "") {
 
@@ -168,6 +170,40 @@ class GradeLevel extends CI_Controller {
 	}
 
 
+	public function updateFetcher() {
+
+		$this->isLogged();
+
+        $config['upload_path']          = './uploads/fetcher/';
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 25000;
+        $config['max_width']            = 0;
+        $config['max_height']           = 0;
+
+        $this->load->library('upload', $config);
+
+		$gradeLevelId = $this->input->post('gradeLevelId');
+		$filename = null;
+
+        if ( ! $this->upload->do_upload('fetcherPhotoFile')) {
+
+			$filename = $this->gradelevel_model->getGradeLevelById(array($gradeLevelId))->row()->fetcher;
+        }else {	       
+
+        	$filename = $this->upload->data()['file_name'];
+		}
+
+		$data = array(
+			$filename,
+			$gradeLevelId
+		);
+
+		$this->gradelevel_model->updateFetcher($data);
+
+		$data = array("status" => "success", "message" => "Fetcher Photo successfully updated.");
+
+		echo json_encode($data);
+	}
 
 	public function delete() {
 

@@ -17,6 +17,17 @@ class Account_model extends CI_Model {
 		$this->db->query($sql,$data);		
 	}
 
+	public function getUser($data) {
+
+		$sql = "
+		SELECT *
+		FROM users
+		WHERE id = ?
+		";
+
+		return $this->db->query($sql,$data);		
+	}
+
 	public function getUsers($start,$limit,$search) {
 
 		$start1 = $this->db->escape_str($start);
@@ -52,4 +63,10 @@ class Account_model extends CI_Model {
 		return $this->db->query($sql);
 	}	
 
+
+	public function changePassword($data) {
+
+		$sql = "UPDATE users SET password = ?  WHERE id = ?";
+		$this->db->query($sql,$data);		
+	}	
 }

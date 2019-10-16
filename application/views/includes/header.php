@@ -45,6 +45,7 @@
   <script src="<?= base_url('assets/js/buttons.html5.min.js') ?>"></script>
   <script src="<?= base_url('assets/js/misc.js') ?>"></script>
   <script src="<?= base_url('assets/js/daterangepicker.min.js') ?>"></script>
+  <script src="<?= base_url('assets/js/loadingoverlay.min.js') ?>"></script>
   
 </head>
 

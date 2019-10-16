@@ -50,6 +50,7 @@ function loadTable(base_url,param) {
 										let timeOut = $(this).data('timeout');
 										let schoolYear = $(this).data('schoolyear');
 										let photo = $(this).data('photo');
+										let fetcher = $(this).data('fetcher');
 										let guardian = $(this).data('guardian');
 										let guardianContact = $(this).data('guardiancontact');
 										let rfCard = $(this).data('rfcard');
@@ -67,6 +68,12 @@ function loadTable(base_url,param) {
 										$('#editGuardianContact').val(guardianContact);
 										$('#editRFCard').val(rfCard);
 
+										if(fetcher != '') {
+											$('#fetcherPhotoPreview').attr('src',base_url+'uploads/fetcher/'+fetcher);
+										}else {
+											$('#fetcherPhotoPreview').attr('src',base_url+'assets/img/150x200.png');
+										}
+
 									});
 
 									$(document).on('click','#delete-btn'+data.gradeLevelId,function() {
@@ -81,7 +88,7 @@ function loadTable(base_url,param) {
 									});
 
 									let buttons = "";
-									buttons += "<button type='button' id='edit-btn"+data.gradeLevelId+"' data-id='"+data.gradeLevelId+"' data-studentname='"+data.last_name+", "+data.first_name+"' data-settingsgradelevelid='"+data.settingsGradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-sectionid='"+data.sectionId+"' data-section='"+data.section+"' data-course='"+data.course+"' data-timein='"+data.schedule_timein+"' data-timeout='"+data.schedule_timeout+"' data-schoolyear='"+data.school_year+"' data-photo='"+data.photo+"' data-guardian='"+data.guardian+"' data-guardiancontact='"+data.guardian_contact+"' data-rfcard='"+data.identifierTag+"' class='btn btn-primary' data-toggle='modal' data-target='#editGradeLevelModal'><i class='fa fa-pen'></i></button>";
+									buttons += "<button type='button' id='edit-btn"+data.gradeLevelId+"' data-id='"+data.gradeLevelId+"' data-studentname='"+data.last_name+", "+data.first_name+"' data-settingsgradelevelid='"+data.settingsGradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-sectionid='"+data.sectionId+"' data-section='"+data.section+"' data-course='"+data.course+"' data-timein='"+data.schedule_timein+"' data-timeout='"+data.schedule_timeout+"' data-schoolyear='"+data.school_year+"' data-photo='"+data.photo+"' data-fetcher='"+data.fetcher+"' data-guardian='"+data.guardian+"' data-guardiancontact='"+data.guardian_contact+"' data-rfcard='"+data.identifierTag+"' class='btn btn-primary' data-toggle='modal' data-target='#editGradeLevelModal'><i class='fa fa-pen'></i></button>";
 									buttons += " <button type='button' id='delete-btn"+data.gradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-student='"+data.last_name+", "+data.first_name+"' class='btn btn-danger' data-id='"+data.gradeLevelId+"' data-toggle='modal' data-target='#deleteGradeLevelModal'><i class='fa fa-trash'></i></button>";
 
 									return buttons;
@@ -252,6 +259,51 @@ $(function(){
 	});
 
 
+	$('#editFetcherBtn').click(function() {
+
+		$('#editFetcherBtn').attr('disabled',true);
+		$('.closeModalBtn').attr('disabled',true);	
+
+		let gradeLevelId = $('#gradeLevelId').val();
+
+		let form = $('#uploadFetcherPhoto')[0];
+		let formData = new FormData(form);		
+
+		formData.append('gradeLevelId',gradeLevelId);
+
+		$.ajax({
+			url:base_url+'GradeLevel/updateFetcher',
+			type:'POST',
+			enctype:'multipart/form-data',
+	        processData: false,
+	        contentType: false,
+	        cache: false,
+	        timeout: 600000,			
+			data:formData,
+			success:function(result) {
+
+				let res = JSON.parse(result);
+
+				if(res.status == 'success') {
+
+					swal("Good job!", res.message, "success");
+					$('#editGradeLevelModal').modal('hide');
+					$('#gradeLevelTable').DataTable().ajax.reload(null,false);
+					
+				}else {
+
+					swal("Ooopss!",res.message, "error");					
+				}				
+
+				$('#editFetcherBtn').attr('disabled',false);
+				$('.closeModalBtn').attr('disabled',false);
+
+			}
+		});
+
+	});
+
+
 	$('#deleteGradeLevelBtn').click(function(){
 
 		$('#deleteGradeLevelBtn').attr('disabled',true);
@@ -381,6 +433,10 @@ $(function(){
 
 	$("#studentPhotoInput").change(function() {
 	  readURL(this,'studentPhotoPreview');
+	});
+
+	$("#fetcherPhotoInput").change(function() {
+	  readURL(this,'fetcherPhotoPreview');
 	});
 
 	$("#editStudentPhotoInput").change(function() {

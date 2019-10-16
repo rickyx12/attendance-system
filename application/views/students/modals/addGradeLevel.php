@@ -9,8 +9,8 @@
         <div class="modal-body">
           <div class="form-group">
             <div class="row">
-              <div class="col-6" style="width: 150px; height: 150px;">
-                <img id="studentPhotoPreview" src="<?= base_url('assets/img/150.png') ?>" style="width: 100%; height: 100%;">
+              <div class="col-6" style="width: 150px; height: 350px;">
+                <img id="studentPhotoPreview" src="<?= base_url('assets/img/150x350.png') ?>" style="width: 100%; height: 100%;">
               </div>
               <div class="col-6">
                 <form id="uploadStudentPhoto">
@@ -100,7 +100,6 @@
             <label>RF Card</label>
             <input type="text" id="rfCard" class="form-control" autocomplete="off">
           </div>
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger closeModalBtn" data-dismiss="modal">Close</button>

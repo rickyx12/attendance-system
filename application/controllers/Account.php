@@ -34,6 +34,20 @@ class Account extends CI_Controller {
 		$this->load->view('login');
 	}
 
+	public function changePassword() {
+
+		$this->isLogged();
+
+		$data = array(
+			'page' => 'settings-page',
+			'username' => $this->account_model->getUser($this->session->id)->row()->username
+		);
+
+		$this->load->view('includes/header',$data);
+		$this->load->view('settings/users/change_password');
+		$this->load->view('includes/footer');		
+	}
+
 	public function loginNow() {
 
 		$username = $this->input->post('username');
@@ -55,6 +69,37 @@ class Account extends CI_Controller {
 			redirect('Account/login');
 		}
 
+	}
+
+	public function changePasswordNow() {
+
+		$username = $this->input->post('username');
+		$currentPassword = $this->input->post('currentPassword');
+		$newPassword = $this->input->post('newPassword');
+		$response = "";
+
+		$account = $this->utility_model->selectNow('users','id','username',$username)->row();
+		$hashPass = $this->utility_model->selectNow('users','password','username',$username)->row();
+
+		if($account->id != "") {
+
+			if(password_verify($currentPassword,$hashPass->password)) {
+				
+				$hashPass = password_hash($newPassword, PASSWORD_BCRYPT, ['cost' => 12]);
+				$data = array($hashPass,$account->id);
+				$this->account_model->changePassword($data);
+
+				$response = array('status' => 'success', 'message' => 'Change password success.');
+			}else {
+
+				$response = array('status' => 'error', 'message' => 'Incorrect Password');
+			}
+
+		}else {
+			$response = array('status' => 'error', 'message' => 'Incorrect Password');
+		}
+
+		echo json_encode($response);					
 	}
 
 	public function register() {

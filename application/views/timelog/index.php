@@ -19,6 +19,7 @@
 	 <script src="<?= base_url('assets/js/sweetalert.min.js') ?>"></script>
 	 <script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>	  
 	 <script src="<?= base_url('assets/js/loadingoverlay.min.js') ?>"></script>
+
  </head>
 
 <body id="page-top" data-urlbase="<?= base_url() ?>"> 
@@ -28,7 +29,7 @@
 			<div class="col-3">
 			</div>
 	        <div class="col-6">
-	        	<div style="width:300px; height: 250px; float:left">
+	        	<div style="width:300px; height: 500px; float:left">
 	          		<img id="studentPhotoPreview" style="width: 100%; height: 100%;">
 	      		</div>
 	      		<div style="margin-left: 60%;">
@@ -36,6 +37,11 @@
 	      			<span id="time"></span>
 	      			<span id="date"></span>
 	      			<input type="text" id="scanner" class="form-control" autocomplete="off" style="opacity: -1">
+	      			<br>
+		        	<div id="fetcherElem" style="width:220px; height: 200px; float:left">
+		        		<h4>Fetcher</h4>
+		          		<img id="fetcherPhotoPreview" style="width: 100%; height: 100%;">
+		      		</div>
 	      		</div>
 	        </div>
 			<div class="col-3">
@@ -50,6 +56,7 @@
 	let base_url = $('body').data('urlbase');
 
 	$('#scanner').focus();
+	$('#fetcherElem').hide();
 
 	$('#scanner').focusout(function(){
 		$(this).focus();
@@ -95,6 +102,17 @@
 					$('#scanner').prop('disabled',false);
 					$('#scanner').focus();
 				
+					if(res.tap == 'OUT') {
+						if(res.fetcher != '') {
+							$('#fetcherElem').show();
+							$('#fetcherPhotoPreview').attr('src',base_url+'uploads/fetcher/'+res.fetcher);
+						}else {
+							$('#fetcherElem').hide();
+						}
+					}else {
+						$('#fetcherElem').hide();
+					}
+
 				}else {
 					swal('Ooops!',res.message,'error');
 				}
