@@ -3,7 +3,7 @@
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
 
-      <?php if($page == 'dashboard-page'): ?>
+<!--       <?php if($page == 'dashboard-page'): ?>
         <li id="dashboard-nav" class="nav-item active">
       <?php else: ?>
         <li id="dashboard-nav" class="nav-item">
@@ -14,7 +14,7 @@
           <span>Dashboard</span>
         </a>
       </li>
-
+ -->
 
       <?php if($page == 'students-page'): ?>
         <li id="students-nav" class="nav-item active">
