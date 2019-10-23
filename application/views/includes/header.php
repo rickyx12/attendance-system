@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Attendance System</title>
+  <title>TechGuardian Software Attendance System</title>
 
   <link rel="shortcut icon" href="<?= base_url('assets/img/favicon.ico') ?>" type="image/x-icon">
   <link rel="icon" href="<?= base_url('assets/img/favicon.ico') ?>" type="image/x-icon">

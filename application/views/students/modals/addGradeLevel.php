@@ -37,13 +37,13 @@
           <div class="form-group">
             <label>Section</label>
             <select id="section" class="form-control sectionSelect">
-              <option value="null"></option>
+              <option></option>
             </select>
           </div>   
           <div class="form-group">
             <label>Course</label>
             <select id="courseSelect" class="form-control courseSelect">
-              <option></option>
+              <option value="5"></option>
               <?php foreach($courses as $course): ?>
                 <option value="<?= $course->id ?>"><?= $course->course ?></option>
               <?php endforeach; ?>

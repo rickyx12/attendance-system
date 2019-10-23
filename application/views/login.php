@@ -53,7 +53,8 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   <script src="<?= base_url('assets/vendor/jquery/jquery.min.js') ?>"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
   <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
 </body>
