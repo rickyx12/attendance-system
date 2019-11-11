@@ -170,21 +170,27 @@
 					// $('.time-list').html('<h6><span style="color:#ff0000">'+res.tap+'</span>: '+res.time+'</h6>');
 					// $('.date-list').html('<h6>'+res.date+'</h6>');
 
-					$('#name1').html('<h6><b>'+res.latestTimelog[1].student+'</b></h6>');
-					$('#name2').html('<h6><b>'+res.latestTimelog[2].student+'</b></h6>');
-					$('#name3').html('<h6><b>'+res.latestTimelog[3].student+'</b></h6>');
+					if(typeof res.latestTimelog[1] !== 'undefined') {
+						$('#name1').html('<h6><b>'+res.latestTimelog[1].student+'</b></h6>');
+						$('#time1').html('<h6><span style="color:#ff0000">'+res.latestTimelog[1].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[1].timeTap)+'</h6>');
+						$('#date1').html('<h6>'+formatDate(res.latestTimelog[1].dateTap)+'</h6>');
+						$('#photo1').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[1].photo);
+					}
+					
+					if(typeof res.latestTimelog[2] !== 'undefined') {
+						$('#name2').html('<h6><b>'+res.latestTimelog[2].student+'</b></h6>');
+						$('#time2').html('<h6><span style="color:#ff0000">'+res.latestTimelog[2].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[2].timeTap)+'</h6>');
+						$('#date2').html('<h6>'+formatDate(res.latestTimelog[2].dateTap)+'</h6>');
+						$('#photo2').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[2].photo);
 
-					$('#time1').html('<h6><span style="color:#ff0000">'+res.latestTimelog[1].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[1].timeTap)+'</h6>');
-					$('#time2').html('<h6><span style="color:#ff0000">'+res.latestTimelog[2].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[2].timeTap)+'</h6>');
-					$('#time3').html('<h6><span style="color:#ff0000">'+res.latestTimelog[3].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[3].timeTap)+'</h6>');					
+					}
 
-					$('#date1').html('<h6>'+formatDate(res.latestTimelog[1].dateTap)+'</h6>');
-					$('#date2').html('<h6>'+formatDate(res.latestTimelog[2].dateTap)+'</h6>');
-					$('#date3').html('<h6>'+formatDate(res.latestTimelog[3].dateTap)+'</h6>');
-
-					$('#photo1').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[1].photo);
-					$('#photo2').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[2].photo);
-					$('#photo3').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[3].photo);
+					if(typeof res.latestTimelog[3] !== 'undefined') {
+						$('#name3').html('<h6><b>'+res.latestTimelog[3].student+'</b></h6>');
+						$('#time3').html('<h6><span style="color:#ff0000">'+res.latestTimelog[3].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[3].timeTap)+'</h6>');
+						$('#date3').html('<h6>'+formatDate(res.latestTimelog[3].dateTap)+'</h6>');
+						$('#photo3').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[3].photo);
+					}
 
 				// }else {
 					// swal('Ooops!',res.message,'error');
