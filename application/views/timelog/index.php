@@ -22,17 +22,21 @@
 	 <script src="<?= base_url('assets/js/misc.js') ?>"></script>
 
  </head>
+<nav class="navbar navbar-expand-lg" style="background-color:#00217E;">
+  <a class="navbar-brand" href="#" style="color:#FFFFFF; font-weight: bold;">TECH-GUARDIAN</a>
+  <!-- <img src="<?= base_url("assets/img/favicon.ico") ?>" width="40" height="40"> -->
+</nav>
 
 <body data-urlbase="<?= base_url() ?>" data-smsgateway="<?= $this->config->item('sms_gateway') ?>"> 
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 jumbotron" style="height: 655px;">
+			<div class="col-md-4 jumbotron mt-3" style="height: 621px;">
 				
 				<img id="latestStudentPhoto" class="studentPhotoPreview" style="width: 100%; height: 100%;">
 			
 			</div>
-			<div class="col-md-4 jumbotron" style="padding-top: 10%;">
+			<div class="col-md-4 jumbotron mt-3" style="padding-top: 10%;">
 
 				<input type="text" id="scanner" class="form-control" autocomplete="off" style="opacity: -1">
       			<span id="student"></span>
@@ -87,7 +91,6 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 
 <script>
@@ -97,6 +100,13 @@
 
 	$('#scanner').focus();
 	$('#fetcherElem').hide();
+
+	$.LoadingOverlaySetup({
+	    background      : "rgba(0, 0, 0, 0.5)",
+	    image           : base_url+"assets/img/tech-guardian.PNG",
+	    imageAnimation  : "1.5s fadein",
+	    imageColor      : "#ffcc00"
+	});
 
 	function sendSMS(cpNumber, message) {
 		$.ajax({
