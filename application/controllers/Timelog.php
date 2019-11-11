@@ -23,8 +23,11 @@ class Timelog extends CI_Controller {
 		$ch = curl_init();
 		 
 		//Set the URL that you want to GET by using the CURLOPT_URL option.
-		curl_setopt($ch, CURLOPT_URL, $this->config->item('sms_gateway').'action_page?cpNumber='.$cpNumber.'&message='.$message);
-		 
+		// curl_setopt($ch, CURLOPT_URL, $this->config->item('sms_gateway').'action_page?cpNumber='.$cpNumber.'&message='.$message);
+		curl_setopt($ch, CURLOPT_URL, $this->config->item('sms_gateway').'?cpNumber='.$cpNumber.'&message='.$message);
+
+		curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4 );
+
 		//Set CURLOPT_RETURNTRANSFER so that the content is returned as a variable.
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		 
@@ -42,7 +45,7 @@ class Timelog extends CI_Controller {
 	}
 
 	public function timeIn() {
-
+		$start_time = microtime(true); 
 		$identifierTag = $this->input->post('identifierTag');
 		$student = $this->gradelevel_model->getGradeLevelByIdentifierTag(array($identifierTag))->row();
 		$type = null;
@@ -60,8 +63,7 @@ class Timelog extends CI_Controller {
 				$type = 'out';
 				$typeMessage = 'OUT';
 			}
-
-
+		
 			$timeFrontEnd = date('h:i A');
 			$timeBackEnd = date('H:i');
 			$dateBackend = date('Y-m-d');
@@ -73,8 +75,7 @@ class Timelog extends CI_Controller {
 			$cpNumber = urlencode($student->guardian_contact);
 			$message = urlencode($message);			
 
-			// $this->sendSMS($cpNumber,$message);
-
+			$end_time = microtime(true); 
 			$tapData = array(
 				$student->gradeLevelId,
 				$type,
@@ -84,23 +85,21 @@ class Timelog extends CI_Controller {
 
 			$this->timelog_model->create($tapData);
 
-			// $url = 'http://192.168.0.92/action_page?cpNumber='.$cpNumber.'&message='.$message;
-			// $contents = file_get_contents($url);
+		
 
-			if($this->sendSMS($cpNumber,$message) != "") {
-
-				$data = array(
-					'status' => 'success', 
-					'student' => $student->last_name.", ".$student->first_name,
-					'photo' => $student->photo,
-					'fetcher' => $student->fetcher, 
-					'tap' => $typeMessage,
-					'time' => $timeFrontEnd, 
-					'date' => $dateFrontend
-				);
-			}else {
-				$data = array('status' => 'error', 'message' => 'SMS Error.');
-			}
+			$data = array(
+				'status' => 'success', 
+				'student' => $student->last_name.", ".$student->first_name,
+				'photo' => $student->photo,
+				'fetcher' => $student->fetcher, 
+				'tap' => $typeMessage,
+				'time' => $timeFrontEnd, 
+				'date' => $dateFrontend,
+				'latestTimelog' => $this->timelog_model->getLastFourTimelogs(date("Y-m-d"))->result(),
+				'cpNumber' => $cpNumber,
+				'message' => $message,
+				'exec' => ($end_time - $start_time)." sec"
+			);
 
 		}else {
 
@@ -109,4 +108,5 @@ class Timelog extends CI_Controller {
 
 		echo json_encode($data);
 	}
+
 }

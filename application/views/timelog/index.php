@@ -19,32 +19,71 @@
 	 <script src="<?= base_url('assets/js/sweetalert.min.js') ?>"></script>
 	 <script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>	  
 	 <script src="<?= base_url('assets/js/loadingoverlay.min.js') ?>"></script>
+	 <script src="<?= base_url('assets/js/misc.js') ?>"></script>
 
  </head>
 
-<body id="page-top" data-urlbase="<?= base_url() ?>"> 
+<body data-urlbase="<?= base_url() ?>" data-smsgateway="<?= $this->config->item('sms_gateway') ?>"> 
 
 	<div class="container">
-		<div class="row" style="margin-top: 7%;">
-			<div class="col-3">
+		<div class="row">
+			<div class="col-md-4 jumbotron" style="height: 655px;">
+				
+				<img id="latestStudentPhoto" class="studentPhotoPreview" style="width: 100%; height: 100%;">
+			
 			</div>
-	        <div class="col-6">
-	        	<div style="width:300px; height: 500px; float:left">
-	          		<img id="studentPhotoPreview" style="width: 100%; height: 100%;">
-	      		</div>
-	      		<div style="margin-left: 60%;">
-	      			<span id="student"></span>
-	      			<span id="time"></span>
-	      			<span id="date"></span>
-	      			<input type="text" id="scanner" class="form-control" autocomplete="off" style="opacity: -1">
-	      			<br>
-		        	<div id="fetcherElem" style="width:220px; height: 200px; float:left">
-		        		<h4>Fetcher</h4>
-		          		<img id="fetcherPhotoPreview" style="width: 100%; height: 100%;">
-		      		</div>
-	      		</div>
-	        </div>
-			<div class="col-3">
+			<div class="col-md-4 jumbotron" style="padding-top: 10%;">
+
+				<input type="text" id="scanner" class="form-control" autocomplete="off" style="opacity: -1">
+      			<span id="student"></span>
+      			<span id="time"></span>
+      			<span id="date"></span>
+      			<br>
+	        	<div id="fetcherElem" style="width:220px; height: 200px; float:left">
+	        		<h4>Fetcher</h4>
+	          		<img id="fetcherPhotoPreview" style="width: 100%; height: 100%;">
+	      		</div>				
+
+			</div>
+			<div class="col-md-4" style="height: 655px;">
+				<div class="row">
+					<div class="col-md-12" style="height: 200px; margin-top: 5%; border: 1px solid black; margin-left: 5%;">
+						
+						<img id="photo1" class="studentPhotoPreview" style="width: 40%; height: 100%; float:left;">
+
+		      			<div style="margin-left: 45%; margin-top: 10%;">
+			      			<span id="name1" class="student-list"></span>
+			      			<span id="time1" class="time-list"></span>
+			      			<span id="date1" class="date-list"></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 mt-2" style="height: 200px; border: 1px solid black; margin-left: 5%;">
+						
+						<img id="photo2" class="studentPhotoPreview" style="width: 40%; height: 100%; float:left;">
+
+		      			<div style="margin-left: 45%; margin-top: 10%;">
+			      			<span id="name2" class="student-list"></span>
+			      			<span id="time2" class="time-list"></span>
+			      			<span id="date2" class="date-list"></span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12 mt-2" style="height: 200px; border:1px solid black; margin-left: 5%;">
+						
+						<img id="photo3" class="studentPhotoPreview" style="width: 40%; height: 100%; float:left;">
+
+		      			<div style="margin-left: 45%; margin-top: 10%;">
+			      			<span id="name3" class="student-list"></span>
+			      			<span id="time3" class="time-list"></span>
+			      			<span id="date3" class="date-list"></span>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -54,9 +93,21 @@
 <script>
 	
 	let base_url = $('body').data('urlbase');
+	let sms_gateway = $('body').data('smsgateway');
 
 	$('#scanner').focus();
 	$('#fetcherElem').hide();
+
+	function sendSMS(cpNumber, message) {
+		$.ajax({
+			url: sms_gateway,
+			type:'GET',
+			data: { cpNumber: cpNumber, message: message },
+			complete:function(result) {
+				$.LoadingOverlay('hide');
+			}
+		});
+	}
 
 	$('#scanner').focusout(function(){
 		$(this).focus();
@@ -89,14 +140,15 @@
 			},
 			success:function(result) {
 				
-				$.LoadingOverlay('hide');
 
 				let res = JSON.parse(result);
 
-				if(res.status == 'success') {
+				// if(res.status == 'success') {
+
+					sendSMS(res.cpNumber, res.message);
 
 					$('#student').html('<h4><b>'+res.student+'</b></h4>');
-					$('#studentPhotoPreview').attr('src',base_url+'uploads/photoID/'+res.photo);
+					$('#latestStudentPhoto').attr('src',base_url+'uploads/photoID/'+res.photo);
 					$('#time').html('<h4><span style="color:#ff0000">'+res.tap+'</span>: '+res.time+'</h4>');
 					$('#date').html('<h4>'+res.date+'</h4>');
 					$('#scanner').prop('disabled',false);
@@ -113,9 +165,30 @@
 						$('#fetcherElem').hide();
 					}
 
-				}else {
-					swal('Ooops!',res.message,'error');
-				}
+
+					// $('.student-list').html('<h6><b>'+res.student+'</b></h6>');
+					// $('.time-list').html('<h6><span style="color:#ff0000">'+res.tap+'</span>: '+res.time+'</h6>');
+					// $('.date-list').html('<h6>'+res.date+'</h6>');
+
+					$('#name1').html('<h6><b>'+res.latestTimelog[1].student+'</b></h6>');
+					$('#name2').html('<h6><b>'+res.latestTimelog[2].student+'</b></h6>');
+					$('#name3').html('<h6><b>'+res.latestTimelog[3].student+'</b></h6>');
+
+					$('#time1').html('<h6><span style="color:#ff0000">'+res.latestTimelog[1].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[1].timeTap)+'</h6>');
+					$('#time2').html('<h6><span style="color:#ff0000">'+res.latestTimelog[2].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[2].timeTap)+'</h6>');
+					$('#time3').html('<h6><span style="color:#ff0000">'+res.latestTimelog[3].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[3].timeTap)+'</h6>');					
+
+					$('#date1').html('<h6>'+formatDate(res.latestTimelog[1].dateTap)+'</h6>');
+					$('#date2').html('<h6>'+formatDate(res.latestTimelog[2].dateTap)+'</h6>');
+					$('#date3').html('<h6>'+formatDate(res.latestTimelog[3].dateTap)+'</h6>');
+
+					$('#photo1').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[1].photo);
+					$('#photo2').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[2].photo);
+					$('#photo3').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[3].photo);
+
+				// }else {
+					// swal('Ooops!',res.message,'error');
+				// }
 
 				$('#scanner').val('');
 			}
@@ -124,12 +197,14 @@
 		},500);
 
 	});
+
 	$('#scanner').keyup(function(e){
 	    if(e.keyCode == 13)
 	    {
 	        $(this).trigger("enterKey");
 	    }
 	});
+
 
 </script>
 
