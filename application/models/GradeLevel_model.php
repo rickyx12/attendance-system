@@ -61,12 +61,13 @@ class GradeLevel_model extends CI_Model {
 					settings_section ss, 
 					settings_schoolyear sy,
 					settings_course c 
-				WHERE s.id = gl.student_id
-				AND gl.grade_level = sg.id 
+				WHERE s.id = gl.student_id 
+				AND gl.grade_level = sg.id
 				AND gl.section = ss.id
+				AND gl.course = c.id
 				AND gl.school_year = sy.id
-				AND gl.course = c.course
-				AND (CONCAT_WS(' ',s.last_name,s.first_name,s.middle_name) LIKE '".$search1."%' OR gl.grade_level LIKE '".$search1."%') 
+				AND CONCAT_WS(' ',s.last_name,s.first_name,s.middle_name) 
+				LIKE '".$search1."%' 				
 				AND gl.school_year = '".$schoolYear1."'
 				AND gl.status = 1 
 				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;
