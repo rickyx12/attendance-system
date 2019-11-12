@@ -114,7 +114,10 @@
 			type:'GET',
 			data: { cpNumber: cpNumber, message: message },
 			complete:function(result) {
-				$.LoadingOverlay('hide');
+
+				if(result != "") {
+					$.LoadingOverlay('hide');
+				}
 			}
 		});
 	}
