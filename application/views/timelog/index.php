@@ -108,11 +108,11 @@
 	    imageColor      : "#ffcc00"
 	});
 
-	function sendSMS(cpNumber, message) {
+	function sendSMS(gradeLevelId, cpNumber, message) {
 		$.ajax({
 			url: sms_gateway,
 			type:'GET',
-			data: { cpNumber: cpNumber, message: message },
+			data: { gradeLevelId: gradeLevelId, cpNumber: cpNumber, message: message },
 			complete:function(result) {
 
 				if(result != "") {
@@ -158,7 +158,7 @@
 
 				// if(res.status == 'success') {
 
-					sendSMS(res.cpNumber, res.message);
+					sendSMS(res.gradeLevelId, res.cpNumber, res.message);
 
 					$('#student').html('<h4><b>'+res.student+'</b></h4>');
 					$('#latestStudentPhoto').attr('src',base_url+'uploads/photoID/'+res.photo);

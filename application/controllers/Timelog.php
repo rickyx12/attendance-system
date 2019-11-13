@@ -88,6 +88,7 @@ class Timelog extends CI_Controller {
 		
 
 			$data = array(
+				'gradeLevelId' => $student->gradeLevelId,
 				'status' => 'success', 
 				'student' => $student->last_name.", ".$student->first_name,
 				'photo' => $student->photo,

@@ -6,8 +6,7 @@ var app = express();
 
 
 var sms = [];
-var statusResponse = "";
-var smsIndex = 0;
+var toSend = [];
 
 function sendSms() {
 
@@ -19,29 +18,26 @@ function sendSms() {
 				return console.log("TECH-GUARDIAN DEVICE IS OFF"); 
 			}
 
-			
-			let isSent = res.body;
+			sms.shift();
 
-			if(isSent != "") {
-
-				sms.shift();
-				sendSms();
-			} else {
-				
-				sendSms();	
-			}
 		});
 	}
 	console.table(sms);	
+
+	// console.log(sms[0]["cpNumber"].includes("9508341565"));
 }
 
+setInterval(function() {
+	sendSms();
+},10000);
 
 app.get('/', function (req, res) {
 
 	sms.push(req.query);
-	
+
+	// console.log(req.query['gradeLevelId']);
 	// console.table(sms);
-	sendSms();
+	// sendSms();
 
  	res.send("Success");
 
