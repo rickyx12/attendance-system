@@ -37,7 +37,6 @@
           <div class="form-group">
             <label>Section</label>
             <select id="section" class="form-control sectionSelect">
-              <option value="null"></option>
             </select>
           </div>   
           <div class="form-group">
