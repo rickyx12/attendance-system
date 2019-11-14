@@ -149,6 +149,7 @@ $(function(){
 		formData.append('guardianContact',guardianContact);
 		formData.append('rfCard',rfCard);
 
+
 		$.ajax({
 			url:base_url+'gradeLevel/create',
 			type:'POST',

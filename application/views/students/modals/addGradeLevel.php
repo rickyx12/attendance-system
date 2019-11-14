@@ -37,7 +37,10 @@
           <div class="form-group">
             <label>Section</label>
             <select id="section" class="form-control sectionSelect">
+<<<<<<< HEAD
               <option></option>
+=======
+>>>>>>> 42f44b35606bba39ef35f41bd7dfe10fe552a565
             </select>
           </div>   
           <div class="form-group">

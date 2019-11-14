@@ -58,7 +58,7 @@ class GradeLevel extends CI_Controller {
 			if($this->gradelevel_model->getGradeLevelByStudentId(array($studentId,$schoolYear))->num_rows() == 0) {
 
 				if($this->gradelevel_model->getGradeLevelByIdentifierTag($rfCard)->num_rows() == 0) {
-					if($studentId != "" || $gradeLevel != "" || $section != "" || $schoolYear != "" || $timeIn != "" || $timeOut != "") {
+					if($studentId != "" && $gradeLevel != "" && $section != "" && $section != "null" && $schoolYear != "" && $timeIn != "" && $timeOut != "") {
 
 						$filteredTimein  = date("H:i", strtotime($timeIn));
 						$filteredTimeout = date("H:i", strtotime($timeOut));	
