@@ -25,7 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
  $config['base_url'] = 'http://localhost/students/';
- $config['sms_gateway'] = 'http://192.168.1.92/';
+ $config['sms_gateway'] = 'http://localhost:8081';
  $config['sms_header'] = 'Tech Guardian:';
 
 /*

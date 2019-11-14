@@ -39,7 +39,13 @@ class GradeLevel extends CI_Controller {
 			$studentId = $this->input->post('studentId');
 			$gradeLevel = $this->input->post('gradeLevel');
 			$section = $this->input->post('section');
-			$course = $this->input->post('course');
+
+			if($this->input->post('course') != "") {
+				$course = $this->input->post('course');
+			}else {
+				$course = 7;
+			}
+
 			$schoolYear = $this->input->post('schoolYear');
 			$timeIn = $this->input->post('schedTimein');
 			$timeOut = $this->input->post('schedTimeout');

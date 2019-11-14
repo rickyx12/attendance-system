@@ -2,8 +2,7 @@ function loadTable(base_url,param) {
 
 			$('#gradeLevelTable').DataTable({
 	 					processing:true,
-						serverSide:true,
-						retrieve:true,								
+						serverSide:true,							
 						ajax:{
 							url: base_url+'GradeLevel/gradeLevelJSON',
 							data:{ schoolYear:param }
