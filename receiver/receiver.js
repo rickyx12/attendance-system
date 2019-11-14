@@ -15,7 +15,7 @@ function sendSms() {
 		request("http://192.168.1.92/action_page?cpNumber="+sms[0]['cpNumber']+"&message="+sms[0]['message'], { json: false }, (err, res, body) => {
 			
 			if (err) { 
-				return console.log("TECH-GUARDIAN DEVICE IS OFF"); 
+				return console.log("TECH-GUARDIAN DEVICE IS OFF OR DISCONNECTED FROM THE CURRENT NETWORK"); 
 			}
 
 			sms.shift();
