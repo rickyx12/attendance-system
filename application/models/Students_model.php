@@ -45,7 +45,7 @@ class Students_model extends CI_Model {
 				WHERE CONCAT_WS(' ',last_name,first_name,middle_name) 
 				LIKE '".$search1."%' 
 				AND status = 1 
-				ORDER BY id DESC 
+				ORDER BY last_name ASC 
 				LIMIT ".$start1.",".$limit1;
 			
 			}else {
@@ -54,7 +54,7 @@ class Students_model extends CI_Model {
 				SELECT * 
 				FROM students 
 				WHERE status = 1 
-				ORDER BY id DESC 
+				ORDER BY last_name ASC 
 				LIMIT ".$start1.",".$limit1;	
 			}	
 
