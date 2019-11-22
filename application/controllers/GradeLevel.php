@@ -36,6 +36,20 @@ class GradeLevel extends CI_Controller {
         	$data = array("status" => "error", "message" => $this->upload->display_errors());
         }else {		
 
+
+	        //store the file info
+	        $image_data = $this->upload->data();
+	        $config['image_library'] = 'gd2';
+	        $config['source_image'] = $image_data['full_path']; //get original image
+	        $config['maintain_ratio'] = TRUE;
+	        $config['rotation_angle'] = abs($this->input->post('imageOrientation'));//counter-clockwise angle of rotation
+	        $this->load->library('image_lib', $config);
+
+	        if(!$this->image_lib->rotate()) {
+	        	echo $this->image_lib->display_errors();
+	        }  
+ 
+
 			$studentId = $this->input->post('studentId');
 			$gradeLevel = $this->input->post('gradeLevel');
 			$section = $this->input->post('section');
@@ -54,6 +68,7 @@ class GradeLevel extends CI_Controller {
 			$guardian = $this->input->post('guardian');
 			$guardianContact = $this->input->post('guardianContact');
 			$rfCard = $this->input->post('rfCard');
+			$imageOrientation = $this->input->post('imageOrientation');
 
 			if($this->gradelevel_model->getGradeLevelByStudentId(array($studentId,$schoolYear))->num_rows() == 0) {
 
@@ -80,7 +95,7 @@ class GradeLevel extends CI_Controller {
 
 						$this->gradelevel_model->create($data);
 
-						$data = array("status" => "success", "message" => "Records Added.");
+						$data = array("status" => "success", "message" => "Records Added.", 'imageOrientation' => $imageOrientation);
 
 					}else {
 						$data = array("status" => "error", "message" => "Please Fill up all fields.");
@@ -99,9 +114,9 @@ class GradeLevel extends CI_Controller {
 			}
 		}
 
+		// $this->correctImageOrientation('./uploads/photoID/'.$this->upload->data()['file_name']);
 		echo json_encode($data);
 	}
-
 
 
 	public function update() {
@@ -113,6 +128,7 @@ class GradeLevel extends CI_Controller {
         $config['max_size']             = 25000;
         $config['max_width']            = 0;
         $config['max_height']           = 0;
+        $config['encrypt_name']			= TRUE;
 
         $this->load->library('upload', $config);
 
@@ -126,6 +142,7 @@ class GradeLevel extends CI_Controller {
 		$guardian = $this->input->post('guardian');
 		$guardianContact = $this->input->post('guardianContact');
 		$rfCard = $this->input->post('rfCard');
+		$imageOrientation = $this->input->post("imageOrientation");
 		$filename = null;
 
 		$filteredTimein  = date("H:i", strtotime($scheduleTimein));

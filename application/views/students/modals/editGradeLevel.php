@@ -25,8 +25,10 @@
             <div class="tab-pane fade show active" id="student" role="tabpanel" aria-labelledby="home-tab">
               <div class="form-group">
                 <div class="row">
-                  <div class="col-6" style="width: 150px; height: 350px;">
-                    <img id="editStudentPhotoPreview" style="width: 100%; height: 100%;">
+                  <div class="col-6 btnRotate" onClick="rotateImage()" style="width: 150px; height: 350px;">
+                    <a href="#">
+                      <img id="editStudentPhotoPreview" class="studentPhoto" style="width: 100%; height: 100%;">
+                    </a>
                   </div>
                   <div class="col-6">
                     <form id="editUploadStudentPhoto">

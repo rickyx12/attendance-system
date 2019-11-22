@@ -1,3 +1,28 @@
+var imageOrientation = 0;
+var degree = 0;
+
+
+function rotateImage() {
+
+	if(degree > 360) {
+		degree = -90;
+	}else {
+		degree += -90;
+	}
+
+	$('.btnRotate').animate({  transform: degree }, {
+	    step: function(now,fx) {
+	        $(this).css({
+	            '-webkit-transform':'rotate('+now+'deg)', 
+	            '-moz-transform':'rotate('+now+'deg)',
+	            'transform':'rotate('+now+'deg)'
+	        });
+	    }
+    });
+
+    imageOrientation = degree;
+}
+
 function loadTable(base_url,param) {
 
 			$('#gradeLevelTable').DataTable({
@@ -148,6 +173,7 @@ $(function(){
 		formData.append('guardian',guardian);
 		formData.append('guardianContact',guardianContact);
 		formData.append('rfCard',rfCard);
+		formData.append('imageOrientation',imageOrientation);
 
 
 		$.ajax({
@@ -181,6 +207,7 @@ $(function(){
 					$('#guardian').val('');
 					$('#guardianContact').val('');
 					$('#rfCard').val('');
+					degree = 0;
 
 				}else {
 
