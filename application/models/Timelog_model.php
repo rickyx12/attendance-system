@@ -13,7 +13,7 @@ class Timelog_model extends CI_Model {
 
 	public function checkTimein($data) {
 
-		$sql = "SELECT id,type FROM timelog WHERE grade_level_id = ? AND dateTap = ? ORDER BY id DESC LIMIT 1 ";
+		$sql = "SELECT id,type,timeTap,dateTap FROM timelog WHERE grade_level_id = ? AND dateTap = ? ORDER BY id DESC LIMIT 1 ";
 		return $this->db->query($sql,$data);			
 	}
 
