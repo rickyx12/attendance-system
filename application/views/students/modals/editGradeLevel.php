@@ -63,7 +63,7 @@
               <div class="form-group">
                 <label>Course</label>
                 <select id="editCourse" class="form-control courseSelect">
-                  <option></option>
+                  <option value="7"></option>
                   <?php foreach($courses as $course): ?>
                     <option value="<?= $course->id ?>"><?= $course->course ?></option>
                   <?php endforeach; ?>
@@ -114,6 +114,18 @@
                     <span class="input-group-text" id="basic-addon1">+63</span>
                   </div>              
                   <input type="text" id="editGuardianContact" class="form-control" autocomplete="off">
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <label>Adviser Contact#</label>
+
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">+63</span>
+                  </div>              
+                  <input type="text" id="editAdviserContact" class="form-control" autocomplete="off">
                 </div>
 
               </div>

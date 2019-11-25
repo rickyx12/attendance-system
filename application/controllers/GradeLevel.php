@@ -67,6 +67,7 @@ class GradeLevel extends CI_Controller {
 			$filename = $this->upload->data()['file_name'];
 			$guardian = $this->input->post('guardian');
 			$guardianContact = $this->input->post('guardianContact');
+			$adviserContact = $this->input->post('adviserContact');
 			$rfCard = $this->input->post('rfCard');
 			$imageOrientation = $this->input->post('imageOrientation');
 
@@ -89,6 +90,7 @@ class GradeLevel extends CI_Controller {
 							$filename,
 							$guardian,
 							$guardianContact,
+							$adviserContact,
 							$rfCard,
 							$dateAdded
 						);
@@ -141,6 +143,7 @@ class GradeLevel extends CI_Controller {
 		$schoolYear = $this->input->post('schoolYear');
 		$guardian = $this->input->post('guardian');
 		$guardianContact = $this->input->post('guardianContact');
+		$adviserContact = $this->input->post('adviserContact');
 		$rfCard = $this->input->post('rfCard');
 		$imageOrientation = $this->input->post("imageOrientation");
 		$filename = null;
@@ -173,6 +176,7 @@ class GradeLevel extends CI_Controller {
 					$filename,
 					$guardian,
 					$guardianContact,
+					$adviserContact,
 					$rfCard,
 					$gradeLevelId
 				);
