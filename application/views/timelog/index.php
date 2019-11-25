@@ -108,7 +108,7 @@
 	    imageColor      : "#ffcc00"
 	});
 
-	function sendSMS(gradeLevelId, cpNumber, message) {
+	function sendAdviserSMS(gradeLevelId, cpNumber, message) {
 		$.ajax({
 			url: sms_gateway,
 			type:'GET',
@@ -117,6 +117,20 @@
 
 				if(result != "") {
 					$.LoadingOverlay('hide');
+				}
+			}
+		});
+	}
+
+	function sendSMS(gradeLevelId, cpNumber, adviserCpNumber, message) {
+		$.ajax({
+			url: sms_gateway,
+			type:'GET',
+			data: { gradeLevelId: gradeLevelId, cpNumber: cpNumber, message: message },
+			complete:function(result) {
+
+				if(result != "") {
+					sendAdviserSMS(gradeLevelId,adviserCpNumber,message);
 				}
 			}
 		});
@@ -158,7 +172,7 @@
 
 				if(res.status == 'success') {
 
-					sendSMS(res.gradeLevelId, res.cpNumber, res.message);
+					sendSMS(res.gradeLevelId, res.cpNumber, res.adviserCpNumber, res.message);
 
 					$('#student').html('<h4><b>'+res.student+'</b></h4>');
 					$('#latestStudentPhoto').attr('src',base_url+'uploads/photoID/'+res.photo);

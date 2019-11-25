@@ -86,6 +86,7 @@ class Timelog extends CI_Controller {
 					$message = $this->config->item('sms_header')."\n".$student->last_name.", ".$student->first_name." \n".$typeMessage.": ".$timeFrontEnd." \n".$dateFrontend;
 
 					$cpNumber = urlencode($student->guardian_contact);
+					$adviserCpNumber = urlencode($student->adviser_contact);
 					$message = urlencode($message);			
 
 					$end_time = microtime(true); 
@@ -109,6 +110,7 @@ class Timelog extends CI_Controller {
 						'date' => $dateFrontend,
 						'latestTimelog' => $this->timelog_model->getLastFourTimelogs(date("Y-m-d"))->result(),
 						'cpNumber' => $cpNumber,
+						'adviserCpNumber' => $adviserCpNumber,
 						'message' => $message,
 						'exec' => ($end_time - $start_time)." sec"
 					);
@@ -136,6 +138,7 @@ class Timelog extends CI_Controller {
 				$message = $this->config->item('sms_header')."\n".$student->last_name.", ".$student->first_name." \n".$typeMessage.": ".$timeFrontEnd." \n".$dateFrontend;
 
 				$cpNumber = urlencode($student->guardian_contact);
+				$adviserCpNumber = urlencode($student->adviser_contact);
 				$message = urlencode($message);			
 
 				$end_time = microtime(true); 
@@ -159,6 +162,7 @@ class Timelog extends CI_Controller {
 					'date' => $dateFrontend,
 					'latestTimelog' => $this->timelog_model->getLastFourTimelogs(date("Y-m-d"))->result(),
 					'cpNumber' => $cpNumber,
+					'adviserCpNumber' => $adviserCpNumber,
 					'message' => $message,
 					'exec' => ($end_time - $start_time)." sec"
 				);

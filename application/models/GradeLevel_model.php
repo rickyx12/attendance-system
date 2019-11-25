@@ -175,7 +175,7 @@ class GradeLevel_model extends CI_Model {
 	public function getGradeLevelByIdentifierTag($data) {
 
 		$sql = "
-		SELECT s.last_name, s.first_name, gl.id as gradeLevelId, gl.photo, gl.fetcher, gl.guardian_contact, gl.identifierTag 
+		SELECT s.last_name, s.first_name, gl.id as gradeLevelId, gl.photo, gl.fetcher, gl.guardian_contact, gl.adviser_contact, gl.identifierTag 
 		FROM students s,grade_level gl 
 		WHERE s.id = gl.student_id
 		AND gl.identifierTag = ? 
