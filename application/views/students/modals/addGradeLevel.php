@@ -9,13 +9,24 @@
         <div class="modal-body">
           <div class="form-group">
             <div class="row">
-              <div class="col-6" style="width: 150px; height: 350px;">
-                <img id="studentPhotoPreview" src="<?= base_url('assets/img/150x350.png') ?>" style="width: 100%; height: 100%;">
+              <div id="photoPreviewContainer" class="col-6 btnRotate" onClick="rotateImage()" style="width: 150px; height: 350px;">
+                <a href="#">
+                  <img id="studentPhotoPreview" class="studentPhoto" src="<?= base_url('assets/img/150x350.png') ?>" style="width: 100%; height: 100%;">
+                </a>
               </div>
               <div class="col-6">
                 <form id="uploadStudentPhoto">
                     <input type="file" id="studentPhotoInput" name="studentPhotoFile" id="fileToUpload">
-                </form>                
+                </form> 
+
+
+<!-- <h5>Rotate Image:</h5>
+<input type="button" class="btnRotate" value="90" onClick="rotateImage(this.value);" />
+<input type="button" class="btnRotate" value="-90" onClick="rotateImage(this.value);" />
+<input type="button" class="btnRotate" value="180" onClick="rotateImage(this.value);" />
+<input type="button" class="btnRotate" value="360" onClick="rotateImage(this.value);" /> -->
+
+
               </div>
             </div>
           </div>

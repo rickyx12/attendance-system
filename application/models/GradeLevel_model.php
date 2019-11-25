@@ -70,7 +70,7 @@ class GradeLevel_model extends CI_Model {
 				LIKE '".$search1."%' 				
 				AND gl.school_year = '".$schoolYear1."'
 				AND gl.status = 1 
-				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;
+				ORDER BY s.last_name ASC LIMIT ".$start1.",".$limit1;
 			
 			}else {
 			
@@ -108,7 +108,7 @@ class GradeLevel_model extends CI_Model {
 				AND gl.school_year = sy.id
 				AND gl.school_year = '".$schoolYear1."'
 				AND gl.status = 1 
-				ORDER BY gl.id DESC LIMIT ".$start1.",".$limit1;	
+				ORDER BY s.last_name ASC LIMIT ".$start1.",".$limit1;	
 			}
 
 		}else {

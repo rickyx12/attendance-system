@@ -156,7 +156,7 @@
 
 				let res = JSON.parse(result);
 
-				// if(res.status == 'success') {
+				if(res.status == 'success') {
 
 					sendSMS(res.gradeLevelId, res.cpNumber, res.message);
 
@@ -205,9 +205,10 @@
 						$('#photo3').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[3].photo);
 					}
 
-				// }else {
-					// swal('Ooops!',res.message,'error');
-				// }
+				}else {
+					$.LoadingOverlay('hide');
+					swal('Ooops!',res.message,'error');
+				}
 
 				$('#scanner').val('');
 			}
