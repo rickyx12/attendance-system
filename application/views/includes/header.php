@@ -49,7 +49,7 @@
   
 </head>
 
-<body id="page-top" data-urlbase="<?= base_url() ?>">
+<body id="page-top" data-urlbase="<?= base_url() ?>" data-smsgateway="<?= $this->config->item('sms_gateway') ?>">
 
 <?php include('navbar.php') ?>
 <?php include('sidebar.php') ?>
