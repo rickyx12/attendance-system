@@ -130,7 +130,11 @@
 			complete:function(result) {
 
 				if(result != "") {
-					sendAdviserSMS(gradeLevelId,adviserCpNumber,message);
+					if(adviserCpNumber != "") {
+						sendAdviserSMS(gradeLevelId,adviserCpNumber,message);
+					}else {
+						$.LoadingOverlay('hide');
+					}
 				}
 			}
 		});
