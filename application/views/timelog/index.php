@@ -38,7 +38,7 @@
 			</div>
 			<div class="col-md-4 jumbotron mt-3" style="padding-top: 10%;">
 
-				<input type="text" id="scanner" class="form-control" autocomplete="off" style="opacity: 1">
+				<input type="text" id="scanner" class="form-control" autocomplete="off" style="opacity: -1">
       			<span id="student"></span>
       			<span id="time"></span>
       			<span id="date"></span>
