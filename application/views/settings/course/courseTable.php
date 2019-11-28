@@ -10,6 +10,7 @@
       <table id="courseTable" class="table table-bordered table-striped w-100">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Course</th>
             <th></th>
           </tr>

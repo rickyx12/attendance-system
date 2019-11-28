@@ -10,6 +10,7 @@
       <table id="schoolYearTable" class="table table-bordered table-striped w-100">
         <thead>
           <tr>
+            <th>ID</th>
             <th>School Year</th>
             <th></th>
           </tr>

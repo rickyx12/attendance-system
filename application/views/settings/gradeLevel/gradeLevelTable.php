@@ -10,6 +10,7 @@
       <table id="gradeLevelTable" class="table table-bordered table-striped w-100">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Grade Level</th>
             <th></th>
           </tr>

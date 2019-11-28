@@ -10,6 +10,7 @@
       <table id="sectionTable" class="table table-bordered table-striped w-100">
         <thead>
           <tr>
+            <th>ID</th>
             <th>Section</th>
             <th>Grade Level</th>
             <th></th>
