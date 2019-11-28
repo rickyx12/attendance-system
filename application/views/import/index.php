@@ -44,9 +44,9 @@
           <div class="tab-pane container mt-3" id="existingStudent">
             <div class="row">
               <div class="col-md-12" id="importFrm">
-                  <form id="csvUpload">
-                      <input type="file" name="csvFile" />
-                      <input type="button" class="btn btn-primary" id="importBtn" name="importSubmit" value="IMPORT">
+                  <form id="existingCsvUpload">
+                      <input type="file" name="existingCsvFile" />
+                      <input type="button" class="btn btn-primary" id="importGradeLevelBtn" name="importSubmit" value="IMPORT">
                   </form>
               </div>
             </div>            

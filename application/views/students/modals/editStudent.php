@@ -8,6 +8,10 @@
         </div>
         <div class="modal-body">
           <div class="form-group">
+            <label>ID</label>
+            <input type="text" id="studentId" class="form-control" readonly="readonly">
+          </div>          
+          <div class="form-group">
             <label>Last Name</label>
             <input type="text" id="editLastName" class="form-control">
             <input type="hidden" id="studentId">
