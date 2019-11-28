@@ -207,6 +207,19 @@
 
         </div>
 
+
+        <div class="col-6">
+
+          <div class="card">
+            <div class="card-body">
+              <a href="<?= base_url('Import/index') ?>">Import</a>
+              <br>
+              <label style="font-size:13px;">Import CSV File for Personal Info.</label>
+            </div>
+          </div>
+
+        </div>
+
         <div class="col-6">  
 
         </div>

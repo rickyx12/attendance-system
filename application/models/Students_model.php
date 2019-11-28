@@ -8,7 +8,8 @@ class Students_model extends CI_Model {
 
 	public function create($data) {
 		$sql = "INSERT INTO students(last_name,first_name,middle_name,birthdate,gender) VALUES (?,?,?,?,?)";
-		$this->db->query($sql, $data);			
+		$this->db->query($sql, $data);
+		return $this->db->insert_id();			
 	}
 
 	public function getStudentByName($data) {
