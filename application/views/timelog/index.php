@@ -21,6 +21,14 @@
 	 <script src="<?= base_url('assets/js/loadingoverlay.min.js') ?>"></script>
 	 <script src="<?= base_url('assets/js/misc.js') ?>"></script>
 
+
+	 <style>
+	 	body {
+	 		background-image: url(<?= base_url("assets/img/bg2.jpg") ?>);
+	 		/*background-repeat: repeat-x;*/
+	 	}
+	 </style>
+
  </head>
 <nav class="navbar navbar-expand-lg" style="background-color:#00217E;">
   <a class="navbar-brand" href="#" style="color:#FFFFFF; font-weight: bold;">TECH-GUARDIAN</a>
@@ -31,12 +39,12 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-4 jumbotron mt-3" style="height: 621px;">
+			<div class="col-md-4 jumbotron mt-3" style="height: 621px; background-color: #00217E;">
 				
 				<img id="latestStudentPhoto" class="studentPhotoPreview" style="width: 100%; height: 100%;">
 			
 			</div>
-			<div class="col-md-4 jumbotron mt-3" style="padding-top: 10%;">
+			<div class="col-md-4 jumbotron mt-3" style="padding-top: 10%; background-color: #00217E;">
 
 				<input type="text" id="scanner" class="form-control" autocomplete="off" style="opacity: -1">
       			<span id="student"></span>
@@ -51,7 +59,7 @@
 			</div>
 			<div class="col-md-4" style="height: 655px;">
 				<div class="row">
-					<div class="col-md-12" style="height: 200px; margin-top: 5%; border: 1px solid black; margin-left: 5%;">
+					<div class="col-md-12" style="height: 200px; margin-top: 5%; border: 1px solid black; margin-left: 5%; background-color: #00217E;">
 						
 						<img id="photo1" class="studentPhotoPreview" style="width: 40%; height: 100%; float:left;">
 
@@ -64,7 +72,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-12 mt-2" style="height: 200px; border: 1px solid black; margin-left: 5%;">
+					<div class="col-md-12 mt-2" style="height: 200px; border: 1px solid black; margin-left: 5%; background-color: #00217E;">
 						
 						<img id="photo2" class="studentPhotoPreview" style="width: 40%; height: 100%; float:left;">
 
@@ -77,7 +85,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-12 mt-2" style="height: 200px; border:1px solid black; margin-left: 5%;">
+					<div class="col-md-12 mt-2" style="height: 200px; border:1px solid black; margin-left: 5%; background-color:#00217E;">
 						
 						<img id="photo3" class="studentPhotoPreview" style="width: 40%; height: 100%; float:left;">
 
@@ -178,10 +186,10 @@
 
 					sendSMS(res.gradeLevelId, res.cpNumber, res.adviserCpNumber, res.message);
 
-					$('#student').html('<h4><b>'+res.student+'</b></h4>');
+					$('#student').html('<h4><b><span style="color:#FFFFFF;">'+res.student+'</span></b></h4>');
 					$('#latestStudentPhoto').attr('src',base_url+'uploads/photoID/'+res.photo);
-					$('#time').html('<h4><span style="color:#ff0000">'+res.tap+'</span>: '+res.time+'</h4>');
-					$('#date').html('<h4>'+res.date+'</h4>');
+					$('#time').html('<h4><span style="color:#FFFFFF;">'+res.tap+': '+res.time+'</span></h4>');
+					$('#date').html('<h4><span style="color:#FFFFFF;">'+res.date+'</span></h4>');
 					$('#scanner').prop('disabled',false);
 					$('#scanner').focus();
 				
@@ -202,24 +210,24 @@
 					// $('.date-list').html('<h6>'+res.date+'</h6>');
 
 					if(typeof res.latestTimelog[1] !== 'undefined') {
-						$('#name1').html('<h6><b>'+res.latestTimelog[1].student+'</b></h6>');
-						$('#time1').html('<h6><span style="color:#ff0000">'+res.latestTimelog[1].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[1].timeTap)+'</h6>');
-						$('#date1').html('<h6>'+formatDate(res.latestTimelog[1].dateTap)+'</h6>');
+						$('#name1').html('<h6><b><span style="color:#FFFFFF">'+res.latestTimelog[1].student+'</span></b></h6>');
+						$('#time1').html('<h6><span style="color:#FFFFFF">'+res.latestTimelog[1].type.toUpperCase()+': '+formatTime(res.latestTimelog[1].timeTap)+'</span></h6>');
+						$('#date1').html('<h6><span style="color:#FFFFFF">'+formatDate(res.latestTimelog[1].dateTap)+'</span></h6>');
 						$('#photo1').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[1].photo);
 					}
 					
 					if(typeof res.latestTimelog[2] !== 'undefined') {
-						$('#name2').html('<h6><b>'+res.latestTimelog[2].student+'</b></h6>');
-						$('#time2').html('<h6><span style="color:#ff0000">'+res.latestTimelog[2].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[2].timeTap)+'</h6>');
-						$('#date2').html('<h6>'+formatDate(res.latestTimelog[2].dateTap)+'</h6>');
+						$('#name2').html('<h6><b><span style="color:#FFFFFF">'+res.latestTimelog[2].student+'</span></b></h6>');
+						$('#time2').html('<h6><span style="color:#FFFFFF">'+res.latestTimelog[2].type.toUpperCase()+': '+formatTime(res.latestTimelog[2].timeTap)+'</span></h6>');
+						$('#date2').html('<h6><span style="color:#FFFFFF">'+formatDate(res.latestTimelog[2].dateTap)+'</span></h6>');
 						$('#photo2').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[2].photo);
 
 					}
 
 					if(typeof res.latestTimelog[3] !== 'undefined') {
-						$('#name3').html('<h6><b>'+res.latestTimelog[3].student+'</b></h6>');
-						$('#time3').html('<h6><span style="color:#ff0000">'+res.latestTimelog[3].type.toUpperCase()+'</span>: '+formatTime(res.latestTimelog[3].timeTap)+'</h6>');
-						$('#date3').html('<h6>'+formatDate(res.latestTimelog[3].dateTap)+'</h6>');
+						$('#name3').html('<h6><b><span style="color:#FFFFFF">'+res.latestTimelog[3].student+'</span></b></h6>');
+						$('#time3').html('<h6><span style="color:#FFFFFF">'+res.latestTimelog[3].type.toUpperCase()+': '+formatTime(res.latestTimelog[3].timeTap)+'</span></h6>');
+						$('#date3').html('<h6><span style="color:#FFFFFF">'+formatDate(res.latestTimelog[3].dateTap)+'</span></h6>');
 						$('#photo3').attr('src',base_url+'uploads/photoID/'+res.latestTimelog[3].photo);
 					}
 
