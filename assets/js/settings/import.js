@@ -39,11 +39,11 @@ $(function(){
 				$('#status').html("<h3>"+res.message+"</h3>");
 
 				$.each(res.success, function(index, val) {
-					$('#success').append("<p>"+val+"</p>");
+					$('#newSuccess').append("<p>"+val+"</p>");
 				});
 
 				$.each(res.denied, function(index, val) {
-					$('#denied').append("<p>"+val+"</p>");
+					$('#newDenied').append("<p>"+val+"</p>");
 				});
 
 			}
