@@ -58,7 +58,7 @@ class Import extends CI_Controller {
 						'last_name' => ucfirst($row['last_name']),
 						'first_name' => ucfirst($row['first_name']),
 						'middle_name' => ucfirst($row['middle_name']),
-						'birthdate' => $formatBirthdate[2]."-".$formatBirthdate[1]."-".$formatBirthdate[0],
+						'birthdate' => $formatBirthdate[2]."-".$formatBirthdate[0]."-".$formatBirthdate[1],
 						'gender' => $row['gender']
 					);
 
