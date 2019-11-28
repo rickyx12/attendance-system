@@ -7,7 +7,7 @@ class GradeLevel_model extends CI_Model {
     }
 
 	public function create($data) {
-		$sql = "INSERT INTO grade_level(student_id,grade_level,section,course,school_year,schedule_timein,schedule_timeout,photo,guardian,guardian_contact,identifierTag,date_added) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+		$sql = "INSERT INTO grade_level(student_id,grade_level,section,course,school_year,schedule_timein,schedule_timeout,photo,guardian,guardian_contact,adviser_contact,identifierTag,date_added) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		$this->db->query($sql, $data);			
 	}
 
@@ -53,7 +53,8 @@ class GradeLevel_model extends CI_Model {
 					gl.fetcher,
 					gl.identifierTag,
 					gl.guardian,
-					gl.guardian_contact 
+					gl.guardian_contact,
+					gl.adviser_contact 
 				FROM 
 					students s ,
 					grade_level gl, 
@@ -93,7 +94,8 @@ class GradeLevel_model extends CI_Model {
 					gl.fetcher,
 					gl.identifierTag,
 					gl.guardian,
-					gl.guardian_contact
+					gl.guardian_contact,
+					gl.adviser_contact
 				FROM 
 					students s, 
 					grade_level gl, 
@@ -131,7 +133,8 @@ class GradeLevel_model extends CI_Model {
 				gl.fetcher,
 				gl.identifierTag,
 				gl.guardian,
-				gl.guardian_contact 
+				gl.guardian_contact,
+				gl.adviser_contact 
 			FROM 
 				students s ,
 				grade_level gl, 
@@ -172,7 +175,7 @@ class GradeLevel_model extends CI_Model {
 	public function getGradeLevelByIdentifierTag($data) {
 
 		$sql = "
-		SELECT s.last_name, s.first_name, gl.id as gradeLevelId, gl.photo, gl.fetcher, gl.guardian_contact, gl.identifierTag 
+		SELECT s.last_name, s.first_name, gl.id as gradeLevelId, gl.photo, gl.fetcher, gl.guardian_contact, gl.adviser_contact, gl.identifierTag 
 		FROM students s,grade_level gl 
 		WHERE s.id = gl.student_id
 		AND gl.identifierTag = ? 
@@ -183,7 +186,7 @@ class GradeLevel_model extends CI_Model {
 
 	public function update($data) {
 
-		$sql = "UPDATE grade_level SET grade_level = ?, section = ?, course = ?, school_year = ?, schedule_timein = ?, schedule_timeout = ?, photo = ?, guardian = ?, guardian_contact = ?, identifierTag = ? WHERE id = ?";
+		$sql = "UPDATE grade_level SET grade_level = ?, section = ?, course = ?, school_year = ?, schedule_timein = ?, schedule_timeout = ?, photo = ?, guardian = ?, guardian_contact = ?, adviser_contact = ?, identifierTag = ? WHERE id = ?";
 		$this->db->query($sql,$data);		
 	}
 

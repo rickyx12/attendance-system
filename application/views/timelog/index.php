@@ -108,7 +108,7 @@
 	    imageColor      : "#ffcc00"
 	});
 
-	function sendSMS(gradeLevelId, cpNumber, message) {
+	function sendAdviserSMS(gradeLevelId, cpNumber, message) {
 		$.ajax({
 			url: sms_gateway,
 			type:'GET',
@@ -117,6 +117,24 @@
 
 				if(result != "") {
 					$.LoadingOverlay('hide');
+				}
+			}
+		});
+	}
+
+	function sendSMS(gradeLevelId, cpNumber, adviserCpNumber, message) {
+		$.ajax({
+			url: sms_gateway,
+			type:'GET',
+			data: { gradeLevelId: gradeLevelId, cpNumber: cpNumber, message: message },
+			complete:function(result) {
+
+				if(result != "") {
+					if(adviserCpNumber != "") {
+						sendAdviserSMS(gradeLevelId,adviserCpNumber,message);
+					}else {
+						$.LoadingOverlay('hide');
+					}
 				}
 			}
 		});
@@ -158,7 +176,7 @@
 
 				if(res.status == 'success') {
 
-					sendSMS(res.gradeLevelId, res.cpNumber, res.message);
+					sendSMS(res.gradeLevelId, res.cpNumber, res.adviserCpNumber, res.message);
 
 					$('#student').html('<h4><b>'+res.student+'</b></h4>');
 					$('#latestStudentPhoto').attr('src',base_url+'uploads/photoID/'+res.photo);
@@ -207,7 +225,17 @@
 
 				}else {
 					$.LoadingOverlay('hide');
-					swal('Ooops!',res.message,'error');
+					
+					swal(res.message, {
+						buttons:false,
+						timer: 1500	
+					});
+
+					$('#scanner').prop('disabled',false);
+					$('#scanner').val('');
+					$('#scanner').focus();					
+					
+												
 				}
 
 				$('#scanner').val('');

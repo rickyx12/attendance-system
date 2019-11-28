@@ -55,65 +55,67 @@ class Timelog extends CI_Controller {
 
 
 			if($this->timelog_model->checkTimein(array($student->gradeLevelId,date('Y-m-d')))->num_rows() > 0) {
+
 				$lastTimeTap = $this->timelog_model->checkTimein(array($student->gradeLevelId,date('Y-m-d')))->row()->timeTap;
 
 				$lastTap = new DateTime(date('Y-m-d').' '.$lastTimeTap);
 				$currentTap = $lastTap->diff(new DateTime(date('Y-m-d H:i:s')));
 
-			if($currentTap->h == 0) {
+				if($currentTap->h == 0) {
 
-				$data = array('status' => 'error', 'message' => $student->last_name.', '.$student->first_name.' Double Tap Detected');
-			} else {
+					$data = array('status' => 'error', 'message' => $student->last_name.', '.$student->first_name.' Double Tap Detected');
+				} else {
 
-				if(
-					$this->timelog_model->checkTimein(array($student->gradeLevelId,date('Y-m-d')))->num_rows() < 1 ||
-					$this->timelog_model->checkTimein(array($student->gradeLevelId,date('Y-m-d')))->row()->type == 'out'
-				) {
-					$type = 'in';
-					$typeMessage = 'IN';
-				}else {
-					$type = 'out';
-					$typeMessage = 'OUT';
-				}
-			
-				$timeFrontEnd = date('h:i A');
-				$timeBackEnd = date('H:i');
-				$dateBackend = date('Y-m-d');
-				$dateFrontend = date('M d, Y');
-
-
-				$message = $this->config->item('sms_header')."\n".$student->last_name.", ".$student->first_name." \n".$typeMessage.": ".$timeFrontEnd." \n".$dateFrontend;
-
-				$cpNumber = urlencode($student->guardian_contact);
-				$message = urlencode($message);			
-
-				$end_time = microtime(true); 
-				$tapData = array(
-					$student->gradeLevelId,
-					$type,
-					$timeBackEnd,
-					$dateBackend
-				);
-
-				$this->timelog_model->create($tapData);
-
-				$data = array(
-					'gradeLevelId' => $student->gradeLevelId,
-					'status' => 'success', 
-					'student' => $student->last_name.", ".$student->first_name,
-					'photo' => $student->photo,
-					'fetcher' => $student->fetcher, 
-					'tap' => $typeMessage,
-					'time' => $timeFrontEnd, 
-					'date' => $dateFrontend,
-					'latestTimelog' => $this->timelog_model->getLastFourTimelogs(date("Y-m-d"))->result(),
-					'cpNumber' => $cpNumber,
-					'message' => $message,
-					'exec' => ($end_time - $start_time)." sec"
-				);
-
-			}
+					if(
+						$this->timelog_model->checkTimein(array($student->gradeLevelId,date('Y-m-d')))->num_rows() < 1 ||
+						$this->timelog_model->checkTimein(array($student->gradeLevelId,date('Y-m-d')))->row()->type == 'out'
+					) {
+						$type = 'in';
+						$typeMessage = 'IN';
+					}else {
+						$type = 'out';
+						$typeMessage = 'OUT';
+					}
 				
+					$timeFrontEnd = date('h:i A');
+					$timeBackEnd = date('H:i');
+					$dateBackend = date('Y-m-d');
+					$dateFrontend = date('M d, Y');
+
+
+					$message = $this->config->item('sms_header')."\n".$student->last_name.", ".$student->first_name." \n".$typeMessage.": ".$timeFrontEnd." \n".$dateFrontend;
+
+					$cpNumber = urlencode($student->guardian_contact);
+					$adviserCpNumber = urlencode($student->adviser_contact);
+					$message = urlencode($message);			
+
+					$end_time = microtime(true); 
+					$tapData = array(
+						$student->gradeLevelId,
+						$type,
+						$timeBackEnd,
+						$dateBackend
+					);
+
+					$this->timelog_model->create($tapData);
+
+					$data = array(
+						'gradeLevelId' => $student->gradeLevelId,
+						'status' => 'success', 
+						'student' => $student->last_name.", ".$student->first_name,
+						'photo' => $student->photo,
+						'fetcher' => $student->fetcher, 
+						'tap' => $typeMessage,
+						'time' => $timeFrontEnd, 
+						'date' => $dateFrontend,
+						'latestTimelog' => $this->timelog_model->getLastFourTimelogs(date("Y-m-d"))->result(),
+						'cpNumber' => $cpNumber,
+						'adviserCpNumber' => $adviserCpNumber,
+						'message' => $message,
+						'exec' => ($end_time - $start_time)." sec"
+					);
+
+				}
 			}else {
 			
 				if(
@@ -136,6 +138,7 @@ class Timelog extends CI_Controller {
 				$message = $this->config->item('sms_header')."\n".$student->last_name.", ".$student->first_name." \n".$typeMessage.": ".$timeFrontEnd." \n".$dateFrontend;
 
 				$cpNumber = urlencode($student->guardian_contact);
+				$adviserCpNumber = urlencode($student->adviser_contact);
 				$message = urlencode($message);			
 
 				$end_time = microtime(true); 
@@ -159,6 +162,7 @@ class Timelog extends CI_Controller {
 					'date' => $dateFrontend,
 					'latestTimelog' => $this->timelog_model->getLastFourTimelogs(date("Y-m-d"))->result(),
 					'cpNumber' => $cpNumber,
+					'adviserCpNumber' => $adviserCpNumber,
 					'message' => $message,
 					'exec' => ($end_time - $start_time)." sec"
 				);

@@ -77,6 +77,7 @@ function loadTable(base_url,param) {
 										let fetcher = $(this).data('fetcher');
 										let guardian = $(this).data('guardian');
 										let guardianContact = $(this).data('guardiancontact');
+										let adviserContact = $(this).data('advisercontact');
 										let rfCard = $(this).data('rfcard');
 
 										$('#gradeLevelId').val(id);
@@ -90,6 +91,7 @@ function loadTable(base_url,param) {
 										$('#editStudentPhotoPreview').attr('src',base_url+'uploads/photoID/'+photo);
 										$('#editGuardian').val(guardian);
 										$('#editGuardianContact').val(guardianContact);
+										$('#editAdviserContact').val(adviserContact);
 										$('#editRFCard').val(rfCard);
 
 										if(fetcher != '') {
@@ -112,7 +114,7 @@ function loadTable(base_url,param) {
 									});
 
 									let buttons = "";
-									buttons += "<button type='button' id='edit-btn"+data.gradeLevelId+"' data-id='"+data.gradeLevelId+"' data-studentname='"+data.last_name+", "+data.first_name+"' data-settingsgradelevelid='"+data.settingsGradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-sectionid='"+data.sectionId+"' data-section='"+data.section+"' data-course='"+data.course+"' data-timein='"+data.schedule_timein+"' data-timeout='"+data.schedule_timeout+"' data-schoolyear='"+data.school_year+"' data-photo='"+data.photo+"' data-fetcher='"+data.fetcher+"' data-guardian='"+data.guardian+"' data-guardiancontact='"+data.guardian_contact+"' data-rfcard='"+data.identifierTag+"' class='btn btn-primary' data-toggle='modal' data-target='#editGradeLevelModal'><i class='fa fa-pen'></i></button>";
+									buttons += "<button type='button' id='edit-btn"+data.gradeLevelId+"' data-id='"+data.gradeLevelId+"' data-studentname='"+data.last_name+", "+data.first_name+"' data-settingsgradelevelid='"+data.settingsGradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-sectionid='"+data.sectionId+"' data-section='"+data.section+"' data-course='"+data.course+"' data-timein='"+data.schedule_timein+"' data-timeout='"+data.schedule_timeout+"' data-schoolyear='"+data.school_year+"' data-photo='"+data.photo+"' data-fetcher='"+data.fetcher+"' data-guardian='"+data.guardian+"' data-guardiancontact='"+data.guardian_contact+"' data-advisercontact='"+data.adviser_contact+"' data-rfcard='"+data.identifierTag+"' class='btn btn-primary' data-toggle='modal' data-target='#editGradeLevelModal'><i class='fa fa-pen'></i></button>";
 									buttons += " <button type='button' id='delete-btn"+data.gradeLevelId+"' data-gradelevel='"+data.grade_level+"' data-student='"+data.last_name+", "+data.first_name+"' class='btn btn-danger' data-id='"+data.gradeLevelId+"' data-toggle='modal' data-target='#deleteGradeLevelModal'><i class='fa fa-trash'></i></button>";
 
 									return buttons;
@@ -158,6 +160,7 @@ $(function(){
 		let schoolYear = $('#schoolYearSelect').val();
 		let guardian = $('#guardian').val();
 		let guardianContact = $('#guardianContact').val();
+		let adviserContact = $('#adviserContact').val();
 		let rfCard = $('#rfCard').val();
 
 		let form = $('#uploadStudentPhoto')[0];
@@ -172,6 +175,7 @@ $(function(){
 		formData.append('schoolYear',schoolYear);
 		formData.append('guardian',guardian);
 		formData.append('guardianContact',guardianContact);
+		formData.append('adviserContact',adviserContact);
 		formData.append('rfCard',rfCard);
 		formData.append('imageOrientation',imageOrientation);
 
@@ -240,6 +244,7 @@ $(function(){
 		let schoolYear = $('#editSchoolYearSelect').val();
 		let guardian = $('#editGuardian').val();
 		let guardianContact = $('#editGuardianContact').val();
+		let adviserContact = $('#editAdviserContact').val();
 		let rfCard = $('#editRFCard').val();
 
 		formData.append('gradeLevelId',gradeLevelId);
@@ -251,6 +256,7 @@ $(function(){
 		formData.append('schoolYear',schoolYear);
 		formData.append('guardian',guardian);
 		formData.append('guardianContact',guardianContact);
+		formData.append('adviserContact',adviserContact);
 		formData.append('rfCard',rfCard);
 
 		$.ajax({
