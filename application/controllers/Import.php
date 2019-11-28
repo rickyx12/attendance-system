@@ -58,10 +58,14 @@ class Import extends CI_Controller {
 
 					if($formatBirthdate[1] < 10) {
 						$month .= "0".$formatBirthdate[1];
+					}else {
+						$month = $formatBirthdate[1];
 					}
 
 					if($formatBirthdate[0] < 10) {
 						$day .= "0".$formatBirthdate[0];
+					}else {
+						$day = $formatBirthdate[0];
 					}
 
 					$studentData = array(
