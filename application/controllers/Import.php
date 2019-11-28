@@ -53,29 +53,14 @@ class Import extends CI_Controller {
 				foreach($csvData as $row) {
 
 					$formatBirthdate = preg_split("/\//", $row['birthdate']);
-					$month = null;
-					$day = null;
-
-					if($formatBirthdate[1] < 10) {
-						$month = "0".$formatBirthdate[1];
-					}else {
-						$month = $formatBirthdate[1];
-					}
-
-					if($formatBirthdate[0] < 10) {
-						$day = "0".$formatBirthdate[0];
-					}else {
-						$day = $formatBirthdate[0];
-					}
 
 					$studentData = array(
 						'last_name' => ucfirst($row['last_name']),
 						'first_name' => ucfirst($row['first_name']),
 						'middle_name' => ucfirst($row['middle_name']),
-						'birthdate' => $formatBirthdate[2]."-".$month."-".$day,
+						'birthdate' => $formatBirthdate[2]."-".$formatBirthdate[1]."-".$formatBirthdate[0],
 						'gender' => $row['gender']
 					);
-
 
 
 					if(
