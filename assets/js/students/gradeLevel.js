@@ -189,9 +189,14 @@ $(function(){
 	        cache: false,
 	        timeout: 600000,			
 			data:formData,
+			beforeSend:function() {
+				$.LoadingOverlay('show');
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
+
+				$.LoadingOverlay('hide');
 
 				if(res.status == 'success') {
 
@@ -268,9 +273,14 @@ $(function(){
 	        cache: false,
 	        timeout: 600000,			
 			data:formData,
+			beforeSend:function() {
+				$.LoadingOverlay('show');
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
+
+				$.LoadingOverlay('hide');
 
 				if(res.status == 'success') {
 
@@ -313,9 +323,14 @@ $(function(){
 	        cache: false,
 	        timeout: 600000,			
 			data:formData,
+			beforeSend:function() {
+				$.LoadingOverlay('show');
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
+
+				$.LoadingOverlay('hide');
 
 				if(res.status == 'success') {
 
