@@ -27,6 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  $config['base_url'] = 'http://localhost/students/';
  $config['sms_gateway'] = 'http://localhost:8081';
  $config['sms_header'] = 'Tech Guardian:';
+ $config['relay'] = true;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,8 +140,8 @@ $config['subclass_prefix'] = 'MY_';
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
-
+// $config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = 'vendor/autoload.php';
 /*
 |--------------------------------------------------------------------------
 | Allowed URL Characters

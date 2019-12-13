@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Timelog extends CI_Controller {
 
-	private $hasRelay = false;
+	private $hasRelay = $this->config->item('relay');
 
  	public function __construct() {
  		parent::__construct();
