@@ -189,9 +189,14 @@ $(function(){
 	        cache: false,
 	        timeout: 600000,			
 			data:formData,
+			beforeSend:function() {
+				$.LoadingOverlay('show');
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
+
+				$.LoadingOverlay('hide');
 
 				if(res.status == 'success') {
 
@@ -268,9 +273,14 @@ $(function(){
 	        cache: false,
 	        timeout: 600000,			
 			data:formData,
+			beforeSend:function() {
+				$.LoadingOverlay('show');
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
+
+				$.LoadingOverlay('hide');
 
 				if(res.status == 'success') {
 
@@ -313,9 +323,14 @@ $(function(){
 	        cache: false,
 	        timeout: 600000,			
 			data:formData,
+			beforeSend:function() {
+				$.LoadingOverlay('show');
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
+
+				$.LoadingOverlay('hide');
 
 				if(res.status == 'success') {
 
@@ -449,6 +464,42 @@ $(function(){
 
 	$('#editScheduleTo').datetimepicker({
 		format:'LT'
+	});
+
+	$('#rfCard').keyup(function(e){
+	    if(e.keyCode == 13)
+	    {
+	        let rfCard = $('#rfCard').val();
+
+	        if(rfCard.includes('_')) {
+	        	
+	        	let rfId = rfCard.split('_');
+
+	        	$('#rfCard').val(rfId[1]);
+
+	        }else{
+	       
+	        	$('#rfCard').val(rfCard);
+	        }
+	    }
+	});
+
+	$('#editRFCard').keyup(function(e){
+	    if(e.keyCode == 13)
+	    {
+	        let rfCard = $('#editRFCard').val();
+
+	        if(rfCard.includes('_')) {
+	        	
+	        	let rfId = rfCard.split('_');
+
+	        	$('#editRFCard').val(rfId[1]);
+
+	        }else{
+	       
+	        	$('#editRFCard').val(rfCard);
+	        }
+	    }
 	});
 
 	function readURL(input,imgElem) {

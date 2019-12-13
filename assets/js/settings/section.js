@@ -12,6 +12,12 @@ $(function(){
 							{
 								data:null,
 								render:function(data,type,row) {
+									return data.id;
+								}
+							},
+							{
+								data:null,
+								render:function(data,type,row) {
 									return data.section;
 								}
 							},

@@ -112,10 +112,15 @@ $('input[name="dates"]').daterangepicker({
 			url:base_url+'Students/create',
 			type:'POST',
 			data:data,
+			beforeSend:function() {
+				$.LoadingOverlay('show');	
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
 				
+				$.LoadingOverlay('hide');
+
 				if(res.status == 'success') {
 					
 					swal("Good job!", firstName+", "+lastName+" has been added", "success");
@@ -165,9 +170,14 @@ $('input[name="dates"]').daterangepicker({
 			url:base_url+'Students/update',
 			type:'POST',
 			data:data,
+			beforeSend:function() {
+				$.LoadingOverlay('show');
+			},
 			success:function(result) {
 
 				let res = JSON.parse(result);
+
+				$.LoadingOverlay('hide');
 				
 				if(res.status == 'success') {
 					
