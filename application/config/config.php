@@ -27,7 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  $config['base_url'] = 'http://localhost/students/';
  $config['sms_gateway'] = 'http://localhost:8081';
  $config['sms_header'] = 'Tech Guardian:';
- $config['relay'] = true;
+ $config['relay'] = false;
+ $config['relay_port'] = "COM32";
 
 /*
 |--------------------------------------------------------------------------

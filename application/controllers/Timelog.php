@@ -3,13 +3,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Timelog extends CI_Controller {
 
-	private $hasRelay = $this->config->item('relay');
+	private $hasRelay = null;
+	private $serial = null;
 
  	public function __construct() {
  		parent::__construct();
 
+ 		$this->hasRelay = $this->config->item('relay');
+
  		if($this->hasRelay) {
  			include APPPATH . 'third_party/php_serial.class.php';
+
+	 		// Let's start the class
+			$this->serial = new phpSerial;
+
+			// First we must specify the device. This works on both linux and windows (if
+			// your linux serial device is /dev/ttyS0 for COM1, etc)
+			$this->serial->deviceSet($this->config->item('relay_port'));
+			$this->serial->confBaudRate(9600);
+			$this->serial->confStopBits(1);
+			$this->serial->confCharacterLength(8);			
  		}
 
  		$this->load->helper('url');
@@ -53,42 +66,22 @@ class Timelog extends CI_Controller {
 
 	private function gate1() {
 
-		// Let's start the class
-		$serial = new phpSerial;
+		$this->serial->deviceOpen();
 
-		// First we must specify the device. This works on both linux and windows (if
-		// your linux serial device is /dev/ttyS0 for COM1, etc)
-		$serial->deviceSet("COM69");
-		$serial->confBaudRate(9600);
-		$serial->confStopBits(1);
-		$serial->confCharacterLength(8);
+		$this->serial->sendMessage("\xFF\x01\x01");
+		$this->serial->sendMessage("\xFF\x01\x00");
 
-		$serial->deviceOpen();
-
-		$serial->sendMessage("\xFF\x01\x01");
-		$serial->sendMessage("\xFF\x01\x00");
-
-		$serial->deviceClose();	
+		$this->serial->deviceClose();	
 	}
 
 	private function gate2() {
 
-		// Let's start the class
-		$serial = new phpSerial;
+		$this->serial->deviceOpen();
 
-		// First we must specify the device. This works on both linux and windows (if
-		// your linux serial device is /dev/ttyS0 for COM1, etc)
-		$serial->deviceSet("COM69");
-		$serial->confBaudRate(9600);
-		$serial->confStopBits(1);
-		$serial->confCharacterLength(8);
+		$this->serial->sendMessage("\xFF\x02\x01");
+		$this->serial->sendMessage("\xFF\x02\x00");
 
-		$serial->deviceOpen();
-
-		$serial->sendMessage("\xFF\x02\x01");
-		$serial->sendMessage("\xFF\x02\x00");
-
-		$serial->deviceClose();	
+		$this->serial->deviceClose();	
 	}
 
 	public function timeIn() {
