@@ -3,9 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Timelog extends CI_Controller {
 
+	private $hasRelay = false;
+
  	public function __construct() {
  		parent::__construct();
- 		include APPPATH . 'third_party/php_serial.class.php';
+
+ 		if($this->hasRelay) {
+ 			include APPPATH . 'third_party/php_serial.class.php';
+ 		}
+
  		$this->load->helper('url');
  		$this->load->model('gradelevel_model');
  		$this->load->model('timelog_model');
@@ -87,6 +93,7 @@ class Timelog extends CI_Controller {
 
 	public function timeIn() {
 
+		$hasRelay = false;
 		$start_time = microtime(true); 
 
 		//check if has underscore
@@ -94,6 +101,8 @@ class Timelog extends CI_Controller {
 			
 			$identifierTagOriginal = preg_split("/\_/", $this->input->post('identifierTag'));
 			$identifierTag = $identifierTagOriginal[1];
+			$hasRelay = true;
+
 		}else {
 			
 			$identifierTag = $this->input->post('identifierTag');
@@ -167,12 +176,15 @@ class Timelog extends CI_Controller {
 						'exec' => ($end_time - $start_time)." sec"
 					);
 
-					if($identifierTagOriginal[0] == "G1") {
-						$this->gate1();
-					}
 
-					if($identifierTagOriginal[0] == "G2") {
-						$this->gate2();
+					if($this->hasRelay) {
+						if($identifierTagOriginal[0] == "G1") {
+							$this->gate1();
+						}
+
+						if($identifierTagOriginal[0] == "G2") {
+							$this->gate2();
+						}
 					}
 
 				}
@@ -227,12 +239,14 @@ class Timelog extends CI_Controller {
 					'exec' => ($end_time - $start_time)." sec"
 				);
 
-				if($identifierTagOriginal[0] == "G1") {
-					$this->gate1();
-				}
+				if($this->hasRelay) {
+					if($identifierTagOriginal[0] == "G1") {
+						$this->gate1();
+					}
 
-				if($identifierTagOriginal[0] == "G2") {
-					$this->gate2();
+					if($identifierTagOriginal[0] == "G2") {
+						$this->gate2();
+					}
 				}
 			}
 
