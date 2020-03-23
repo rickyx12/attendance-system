@@ -200,7 +200,7 @@ class Timelog extends CI_Controller {
 				$dateFrontend = date('M d, Y');
 
 
-				$message = $this->config->item('sms_header')."\n".$student->last_name.", ".$student->first_name." \n".$typeMessage.": ".$timeFrontEnd." \n".$dateFrontend;
+				$message = $this->config->item('sms_header')."\n".$student->last_name.", ".$student->first_name."\n".$typeMessage.": ".$timeFrontEnd."\n".$dateFrontend;
 
 				$cpNumber = urlencode($student->guardian_contact);
 				$adviserCpNumber = urlencode($student->adviser_contact);

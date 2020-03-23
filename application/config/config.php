@@ -25,7 +25,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
  $config['base_url'] = 'http://localhost/students/';
- $config['sms_gateway'] = 'http://localhost:8081';
+ $config['branded'] = true;
+ 
+ // $config['sms_gateway'] = 'http://localhost:8081';
+ $config['sms_gateway'] = 'http://cloud.mybusybee.net/app/smsapi/index.php';
+
+//apikey and senderID should be commented when branded is false
+ $config['apikey'] = '5d102fd2c44be';
+ $config['senderID'] = 'ST_ALEXIUS';
+ 
  $config['sms_header'] = 'Tech Guardian:';
  $config['relay'] = false;
  $config['relay_port'] = "COM32";

@@ -35,7 +35,17 @@
   <!-- <img src="<?= base_url("assets/img/favicon.ico") ?>" width="40" height="40"> -->
 </nav>
 
-<body data-urlbase="<?= base_url() ?>" data-smsgateway="<?= $this->config->item('sms_gateway') ?>"> 
+<?php if($this->config->item('branded')): ?>
+	<body 
+		data-urlbase="<?= base_url() ?>" 
+		data-smsgateway="<?= $this->config->item('sms_gateway') ?>" 
+		data-apikey="<?= $this->config->item('apikey') ?>" 
+		data-senderid="<?= $this->config->item('senderID') ?>" 
+		data-smsheader="<?= $this->config->item('sms_header') ?>"
+	>  	
+<?php else: ?>
+	<body data-urlbase="<?= base_url() ?>" data-smsgateway="<?= $this->config->item('sms_gateway') ?>"> 
+<?php endif; ?>
 
 	<div class="container">
 		<div class="row">
@@ -105,6 +115,10 @@
 	
 	let base_url = $('body').data('urlbase');
 	let sms_gateway = $('body').data('smsgateway');
+	let branded = $('body').data('branded');
+	let apikey = $('body').data('apikey');
+	let senderID = $('body').data('senderid');
+	let smsHeader = $('body').data('smsheader');
 
 	$('#scanner').focus();
 	$('#fetcherElem').hide();
@@ -116,37 +130,67 @@
 	    imageColor      : "#ffcc00"
 	});
 
-	function sendAdviserSMS(gradeLevelId, cpNumber, message) {
-		$.ajax({
-			url: sms_gateway,
-			type:'GET',
-			data: { gradeLevelId: gradeLevelId, cpNumber: cpNumber, message: message },
-			complete:function(result) {
 
-				if(result != "") {
-					$.LoadingOverlay('hide');
-				}
+	<?php if($this->config->item('branded')): ?>
+
+		function sendSMS(cpNumber, adviserCpNumber, studentName, typeMessage, timeFrontEnd, dateFrontEnd) {
+
+			let data = {
+				apikey: apikey,
+				type:'text',
+				senderid:senderID,
+				contacts:cpNumber+','+adviserCpNumber,
+				msg:decodeURI(encodeURI(smsHeader+"\n"+studentName+"\n"+typeMessage+": "+timeFrontEnd+"\n"+dateFrontEnd))
 			}
-		});
-	}
 
-	function sendSMS(gradeLevelId, cpNumber, adviserCpNumber, message) {
-		$.ajax({
-			url: sms_gateway,
-			type:'GET',
-			data: { gradeLevelId: gradeLevelId, cpNumber: cpNumber, message: message },
-			complete:function(result) {
+			$.ajax({
+				url: sms_gateway,
+				type:'GET',
+				data: data,
+				complete:function(result) {
 
-				if(result != "") {
-					if(adviserCpNumber != "") {
-						sendAdviserSMS(gradeLevelId,adviserCpNumber,message);
-					}else {
+					if(result != "") {
 						$.LoadingOverlay('hide');
 					}
 				}
-			}
-		});
-	}
+			});
+		}
+
+	<?php else: ?>
+		
+		function sendAdviserSMS(gradeLevelId, cpNumber, message) {
+			$.ajax({
+				url: sms_gateway,
+				type:'GET',
+				data: { gradeLevelId: gradeLevelId, cpNumber: cpNumber, message: message },
+				complete:function(result) {
+
+					if(result != "") {
+						$.LoadingOverlay('hide');
+					}
+				}
+			});
+		}
+
+		function sendSMS(gradeLevelId, cpNumber, adviserCpNumber, message) {
+			$.ajax({
+				url: sms_gateway,
+				type:'GET',
+				data: { gradeLevelId: gradeLevelId, cpNumber: cpNumber, message: message },
+				complete:function(result) {
+
+					if(result != "") {
+						if(adviserCpNumber != "") {
+							sendAdviserSMS(gradeLevelId,adviserCpNumber,message);
+						}else {
+							$.LoadingOverlay('hide');
+						}
+					}
+				}
+			});
+		}
+	<?php endif; ?>
+
 
 	$('#scanner').focusout(function(){
 		$(this).focus();
@@ -184,7 +228,11 @@
 
 				if(res.status == 'success') {
 
-					sendSMS(res.gradeLevelId, res.cpNumber, res.adviserCpNumber, res.message);
+					<?php if($this->config->item('branded')): ?>
+						sendSMS(res.cpNumber, res.adviserCpNumber, res.student, res.tap, res.time, res.date);
+					<?php else: ?>
+						sendSMS(res.gradeLevelId, res.cpNumber, res.adviserCpNumber, res.message);
+					<?php endif; ?>
 
 					$('#student').html('<h4><b><span style="color:#FFFFFF;">'+res.student+'</span></b></h4>');
 					$('#latestStudentPhoto').attr('src',base_url+'uploads/photoID/'+res.photo);
