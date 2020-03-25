@@ -136,7 +136,7 @@
 		function sendSMS(cpNumber, adviserCpNumber, studentName, typeMessage, timeFrontEnd, dateFrontEnd) {
 
 			let data = {
-				apikey: apikey,
+				key: apikey,
 				type:'text',
 				senderid:senderID,
 				contacts:cpNumber+','+adviserCpNumber,
